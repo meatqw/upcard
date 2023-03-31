@@ -7,11 +7,11 @@
             <!-- изображение -->
             <div class="main-card__img">
               <picture
-                ><source srcset="img/avatar-card.avif" type="image/avif" />
-                <source srcset="img/avatar-card.webp" type="image/webp" />
+                ><source srcset="../../assets/img/avatar-card.avif" type="image/avif" />
+                <source srcset="../../assets/img/avatar-card.webp" type="image/webp" />
                 <img
                   loading="lazy"
-                  src="img/avatar-card.png"
+                  src="../../assets/img/avatar-card.png"
                   class="image"
                   width="230"
                   height="230"
@@ -87,11 +87,11 @@
                 <!-- изображение -->
                 <div class="card-item__img">
                   <picture
-                    ><source srcset="img/avatar-card.avif" type="image/avif" />
-                    <source srcset="img/avatar-card.webp" type="image/webp" />
+                    ><source srcset="../../assets/img/avatar-card.avif" type="image/avif" />
+                    <source srcset="../../assets/img/avatar-card.webp" type="image/webp" />
                     <img
                       loading="lazy"
-                      src="img/avatar-card.png"
+                      src="../../assets/img/avatar-card.png"
                       class="image"
                       width="65"
                       height="65"
@@ -120,6 +120,10 @@
 <script>
 export default {
   name: "up-account-personal",
+  mounted() {
+    const token = this.$route.query.token;
+    console.log(token)
+  }
 };
 </script>
 

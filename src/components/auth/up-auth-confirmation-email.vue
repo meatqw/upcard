@@ -15,6 +15,7 @@
               >
                 <label class="confirmation-form__label label"
                   ><input
+                    v-model="email"
                     type="email"
                     name="email"
                     class="input-reset input confirmation-form__input input-email"
@@ -24,7 +25,7 @@
                   <span>Email</span></label
                 >
                 <div class="confirmation-form__btns">
-                  <button class="btn-reset btn btn-form confirmation-form__btn">
+                  <button type="button" class="btn-reset btn btn-form confirmation-form__btn" @click="authorization">
                     Отправить код
                   </button>
                 </div>
@@ -37,7 +38,18 @@
 
 <script>
 export default {
-  name: "up-auth-confirmation-email"
+  name: "up-auth-confirmation-email",
+  data() {
+    return {
+      email: "",
+    }
+  },
+  methods: {
+    // отправляем ссылку на почту (в данный момент просто редирект на главную)
+    authorization() {
+      this.$router.push('/account');
+    }
+  }
 }
 </script>
 

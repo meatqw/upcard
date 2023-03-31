@@ -32,6 +32,7 @@ import upAccountDeleteConfirmation from "@/components/account/up-account-delete-
 import upAccountExitConfirmation from "@/components/account/up-account-exit-confirmation.vue";
 // subscriptions
 import upSubscriptionsList from "@/components/subscriptions/up-subscriptions-list.vue";
+import upSubscriptionsListReferral from "@/components/subscriptions/up-subscriptions-list-referral.vue";
 
 
 let routes = [
@@ -64,70 +65,70 @@ let routes = [
   },
   // card
   {
-    path: "/card/appearance",
+    path: "/card-appearance",
     name: "card-appearance",
     component: upCardAppearance,
   },
   {
-    path: "/card/edit",
+    path: "/card-edit",
     name: "card-edit",
     component: upCardEditMenu,
   },
   {
-    path: "/card/qr",
+    path: "/card-qr",
     name: "card-qr",
     component: upCardQr,
   },
     // portfolio
   {
-    path: "/portfolio/list",
+    path: "/portfolio-list",
     name: "portfolio-list",
     component: upPortfolioList,
   },
   {
-    path: "/portfolio/item",
+    path: "/portfolio-item",
     name: "portfolio-item",
     component: upPortfolioItemEdit,
   },
   {
-    path: "/portfolio/delete",
+    path: "/portfolio-delete",
     name: "portfolio-delete",
     component: upPortfolioDeleteConfirmation,
   },
   {
-    path: "/portfolio/item//delete",
+    path: "/portfolio-item-delete",
     name: "portfolio-item-delete",
     component: upPortfolioItemDeleteConfirmation,
   },
     // calendar
   {
-    path: "/calendar/menu",
+    path: "/calendar-menu",
     name: "calendar-menu",
     component: upCalendarMenu,
   },
   {
-    path: "/calendar/delete",
+    path: "/calendar-delete",
     name: "calendar-delete",
     component: upCalendarDeleteConfirmation,
   },
   {
-    path: "/calendar/list",
+    path: "/calendar-list",
     name: "calendar-list",
     component: upCalendarList,
   },
   {
-    path: "/calendar/item",
+    path: "/calendar-item",
     name: "calendar-item",
     component: upCalendarItem,
   },
     // social
   {
-    path: "/social/list",
+    path: "/social-list",
     name: "social-list",
     component: upSocialList,
   },
   {
-    path: "/social/confirmation",
+    path: "/social-confirmation",
     name: "social-confirmation",
     component: upSocialConfirmation,
   },
@@ -135,25 +136,26 @@ let routes = [
   {
     path: "/account",
     name: "account",
+    props: true,
     component: upAccountPersonal,
   },
   {
-    path: "/account/cards",
+    path: "/account-cards",
     name: "account-cards",
     component: upAccountCardsList,
   },
   {
-    path: "/account/settings",
+    path: "/account-settings",
     name: "account-settings",
     component: upAccountSettings,
   },
   {
-    path: "/account/delete",
+    path: "/account-delete",
     name: "account-delete",
     component: upAccountDeleteConfirmation,
   },
   {
-    path: "/account/exit",
+    path: "/account-exit",
     name: "account-exit",
     component: upAccountExitConfirmation,
   },
@@ -162,6 +164,11 @@ let routes = [
     path: "/subscriptions",
     name: "subscriptions",
     component: upSubscriptionsList,
+  },
+  {
+    path: "/subscriptions-referral",
+    name: "subscriptions-referral",
+    component: upSubscriptionsListReferral,
   },
 ];
 

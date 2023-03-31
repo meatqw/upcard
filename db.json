@@ -1,0 +1,81 @@
+{
+  "account": {
+    "id": 1,
+    "email": "test@gmail.com",
+    "balance": 100
+  },
+  "cards": [
+    {
+      "id": 1,
+      "cardName": "",
+      "name": "Oleg",
+      "surname": "Semenov",
+      "patronymic": "Olegivich",
+      "spec": "Программирование",
+      "phone": "89293468581",
+      "homePhone": "23432",
+      "personalSite": "example.com",
+      "email": "neetqw@gmail.com",
+      "dob": "31.01.2001",
+      "address": "soc 109",
+      "personalPic": 1,
+      "logoPic": 1,
+      "social": 1,
+      "appearance": 1,
+      "companyInfo": 1,
+      "account": 1
+    }
+  ],
+  "companyInfo": [
+    {
+      "id": 1,
+      "account": 1,
+      "name": "devup",
+      "activity": "web Разработка",
+      "foundation": "2001",
+      "clientage": "кто то",
+      "phone": "892934583934",
+      "workPhone": "131232",
+      "companySite": "company.com",
+      "fax": "123123",
+      "email": "company@gmail.com",
+      "address": "cos 2021",
+      "social": 1
+    }
+  ],
+  "socials": [
+    {
+      "id": 1,
+      "tg": "21334",
+      "vk": null,
+      "instagram": null,
+      "whatsapp": null,
+      "gmail": null,
+      "facebook": null,
+      "yandex": null,
+      "odnoclasniki": null,
+      "skype": null,
+      "youtube": null,
+      "github": null,
+      "beehance": null,
+      "tiktok": null,
+      "linkedin": null,
+      "twitter": null,
+      "viber": null,
+      "twitch": null
+    }
+  ],
+  "appearance": [
+    {
+      "id": 1,
+      "name": "Классический"
+    }
+  ],
+  "img": [
+    {
+      "id": 1,
+      "name": 1,
+      "path": ""
+    }
+  ]
+}

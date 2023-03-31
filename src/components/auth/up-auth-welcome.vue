@@ -34,8 +34,12 @@
             </div>
             <!-- ссылки в виде кнопок-->
             <div class="start__btns btns-panel">
-              <a href="" class="start__btn btn btn--big">Войти</a>
+              <router-link :to="{name: 'auth'}">
+                <a href="" class="start__btn btn btn--big">Войти</a>
+              </router-link>
+              <router-link :to="{name: 'referral'}">
               <a href="" class="start__btn btn btn--big">Войти рефералом</a>
+              </router-link>
             </div>
           </div>
         </div>

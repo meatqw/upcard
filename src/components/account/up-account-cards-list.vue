@@ -9,22 +9,20 @@
             <!-- итем -->
             <li class="list-of-cards__item">
               <button
-                class="btn-reset list-of-cards__card card-item"
-                onclick="document.location='index.html'"
-              >
+                class="btn-reset list-of-cards__card card-item">
                 <!-- изображение -->
                 <div class="card-item__img">
                   <picture
-                    ><source srcset="img/avatar-card.avif" type="image/avif" />
-                    <source srcset="img/avatar-card.webp" type="image/webp" />
+                    ><source srcset="../../assets/img/avatar-card.avif" type="image/avif" />
+                    <source srcset="../../assets/img/avatar-card.webp" type="image/webp" />
                     <img
                       loading="lazy"
-                      src="img/avatar-card.png"
+                      src="../../assets/img/avatar-card.png"
                       class="image"
                       width="65"
                       height="65"
-                      alt="avatar"
-                  /></picture>
+                      alt="avatar"/>
+                  </picture>
                 </div>
                 <div class="card-item__info">
                   <!-- имя -->

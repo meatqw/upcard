@@ -1,5 +1,6 @@
 <template>
-  <up-main></up-main>
+  <up-main>
+  </up-main>
 </template>
 
 <script>
