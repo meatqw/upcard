@@ -6,109 +6,15 @@
           <h2 class="visually-hidden social__title">Список социальных сетей</h2>
           <ul class="list-reset social__list">
             <!-- добавлненный итем class - social__link--added -->
-            <li class="social__item">
-              <a
-                href="confirmation-social.html"
-                class="social__link social__link--added"
-                ><i class="fa-brands fa-telegram"></i> <span>Telegram</span></a
-              >
-            </li>
-            <!-- имет -->
-            <li class="social__item">
-              <a href="confirmation-social.html" class="social__link"
-                ><i class="fa-brands fa-vk"></i> <span>Вконтакте</span></a
-              >
-            </li>
-            <!-- имет -->
-            <li class="social__item">
-              <a href="confirmation-social.html" class="social__link"
-                ><i class="fa-brands fa-instagram"></i>
-                <span>Instagram</span></a
-              >
-            </li>
-            <!-- имет -->
-            <li class="social__item">
-              <a href="confirmation-social.html" class="social__link"
-                ><i class="fa-brands fa-whatsapp"></i> <span>WhatsApp</span></a
-              >
-            </li>
-            <!-- имет -->
-            <li class="social__item">
-              <a href="confirmation-social.html" class="social__link"
-                ><i class="fa-brands fa-google"></i> <span>Gmail</span></a
-              >
-            </li>
-            <!-- имет -->
-            <li class="social__item">
-              <a href="confirmation-social.html" class="social__link"
-                ><i class="fa-brands fa-facebook"></i> <span>Facebook</span></a
-              >
-            </li>
-            <!-- имет -->
-            <li class="social__item">
-              <a href="confirmation-social.html" class="social__link"
-                ><i class="fa-brands fa-yandex"></i> <span>Yandex</span></a
-              >
-            </li>
-            <!-- имет -->
-            <li class="social__item">
-              <a href="confirmation-social.html" class="social__link"
-                ><i class="fa-brands fa-odnoklassniki"></i>
-                <span>Одноклассники</span></a
-              >
-            </li>
-            <!-- имет -->
-            <li class="social__item">
-              <a href="confirmation-social.html" class="social__link"
-                ><i class="fa-brands fa-skype"></i> <span>Skype</span></a
-              >
-            </li>
-            <!-- имет -->
-            <li class="social__item">
-              <a href="confirmation-social.html" class="social__link"
-                ><i class="fa-brands fa-youtube"></i> <span>YouTube</span></a
-              >
-            </li>
-            <!-- имет -->
-            <li class="social__item">
-              <a href="confirmation-social.html" class="social__link"
-                ><i class="fa-brands fa-github"></i> <span>GitHub</span></a
-              >
-            </li>
-            <!-- имет -->
-            <li class="social__item">
-              <a href="confirmation-social.html" class="social__link"
-                ><i class="fa-brands fa-behance"></i> <span>Beehance</span></a
-              >
-            </li>
-            <!-- имет -->
-            <li class="social__item">
-              <a href="confirmation-social.html" class="social__link"
-                ><i class="fa-brands fa-tiktok"></i> <span>Tiktok</span></a
-              >
-            </li>
-            <!-- имет -->
-            <li class="social__item">
-              <a href="confirmation-social.html" class="social__link"
-                ><i class="fa-brands fa-linkedin"></i> <span>Linkedin</span></a
-              >
-            </li>
-            <!-- имет -->
-            <li class="social__item">
-              <a href="confirmation-social.html" class="social__link"
-                ><i class="fa-brands fa-twitter"></i> <span>Twitter</span></a
-              >
-            </li>
-            <!-- имет -->
-            <li class="social__item">
-              <a href="confirmation-social.html" class="social__link"
-                ><i class="fa-brands fa-viber"></i> <span>Viber</span></a
-              >
-            </li>
-            <!-- имет -->
-            <li class="social__item">
-              <a href="confirmation-social.html" class="social__link"
-                ><i class="fa-brands fa-twitch"></i> <span>Twitch</span></a
+
+            <li v-for="(item, key) in socialData"
+              :key="key"
+              :class="[{ 'social__item': true, 'social__link--added': item !== null }]"
+              style="cursor: pointer"
+              @click="goToSocialConfirmation(key)"
+            >
+              <a class="social__link">
+                <i :class="'fa-brands fa-'+key"></i> <span>{{key.charAt(0).toUpperCase() + key.slice(1)}}</span></a
               >
             </li>
           </ul>
@@ -119,7 +25,67 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
+
 export default {
   name: "up-social-list",
+  data() {
+    return {
+      socialData: {
+        beehance: null,
+        facebook: null,
+        github: null,
+        gmail: null,
+        // id: null,
+        instagram: null,
+        linkedin: null,
+        odnoklassniki: null,
+        skype: null,
+        telegram: null,
+        tiktok: null,
+        twitch: null,
+        twitter: null,
+        viber: null,
+        vk: null,
+        whatsapp: null,
+        yandex: null,
+        youtube: null,
+      },
+    };
+  },
+
+  methods: {
+    ...mapActions(["SET_SOCIAL", "SELECT_CARD", "SET_SOCIAL_DATA"]),
+
+    // редирект на установку данных социалки
+    goToSocialConfirmation(social) {
+      this.SET_SOCIAL(social);
+      this.$router.push("/social-confirmation");
+    },
+  },
+  computed: {
+    ...mapGetters(["SOCIAL", "SELECTED_CARD", "SOCIAL_PATH"]),
+  },
+
+  mounted() {
+    // заполняем socialData данныеми из selectedCard
+    // проверям путь
+    
+    let selectedSocialData = {}
+    if (this.SOCIAL_PATH == 'personal') {
+      selectedSocialData = this.SELECTED_CARD.id_social
+    } else {
+      selectedSocialData = this.SELECTED_CARD.id_company_info.id_social
+    }
+
+
+    if (selectedSocialData !== null) {
+      for (let social in this.socialData) {
+        this.socialData[social] = selectedSocialData[social];
+      }
+    }
+    this.SET_SOCIAL_DATA(selectedSocialData)
+
+  }
 };
 </script>

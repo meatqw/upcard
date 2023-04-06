@@ -15,13 +15,11 @@
                   <!-- изображение -->
                   <div class="add-pictures__img">
                     <picture
-                      ><source
-                        srcset="img/avatar-card.avif"
-                        type="image/avif" />
-                      <source srcset="img/avatar-card.webp" type="image/webp" />
+                      ><source :srcset="img" type="image/avif" />
+                      <source :srcset="img" type="image/webp" />
                       <img
                         loading="lazy"
-                        src="img/avatar-card.png"
+                        :src="img"
                         class="image"
                         width="230"
                         height="230"
@@ -33,9 +31,11 @@
                     <input
                       name="image"
                       type="file"
+                      ref="img"
                       accept="image/*"
                       id="input__file"
                       class="input input__file"
+                      @change="uploadImage('img')"
                     />
                     <label for="input__file" class="input__file-button btn"
                       ><span class="input__file-icon-wrapper"
@@ -53,6 +53,7 @@
                   name="Название"
                   class="input-reset input data-form__input input-name"
                   placeholder="Моя лучшая работа"
+                  v-model="portfolioItemData.name"
                   required
                 />
                 <span>Название*</span></label
@@ -64,6 +65,7 @@
                   class="input-reset input data-form__input input-date"
                   placeholder="31.01.2001"
                   required
+                  v-model="portfolioItemData.date"
                 />
                 <span>Дата*</span></label
               >
@@ -74,17 +76,28 @@
                   class="input-reset input data-form__input input-description"
                   placeholder="Эта работа была выполнена с помощью черной краски."
                   required
+                  v-model="portfolioItemData.description"
                 />
                 <span>Описание*</span></label
               >
             </div>
             <div class="btns-panel data-form__btns">
-              <button class="btn-reset btn btn--big data-form__btn">
+              <button class="btn-reset btn btn--big data-form__btn" type="button"
+              v-if="SELECTED_PORTFOLIO_ITEM == null"
+              @click="savePortfolioData"
+              >
                 Сохранить данные
               </button>
+
+              <button class="btn-reset btn btn--big data-form__btn" type="button"
+              v-else
+              @click="updatePortfolioData"
+              >
+                Обновить данные
+              </button>
+
               <button
-                class="btn-reset btn btn--big btn--border data-form__btn"
-                onclick="document.location='delete-portfolio-item.html'"
+                class="btn-reset btn btn--big btn--border data-form__btn" type="button"
               >
                 Удалить элемент
               </button>
@@ -97,7 +110,82 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
+import { API_DOMAIN } from "/config.js";
+
 export default {
   name: "up-portfolio-item-edit",
+  data() {
+    return {
+      API_DOMAIN: API_DOMAIN,
+
+      portfolioItemData: {
+        name: null,
+        date: null,
+        description: null,
+        img: null,
+        id: null,
+      },
+      img: require("../../assets/img/avatar-card.avif"),
+    };
+  },
+  methods: {
+    ...mapActions(["SELECT_PORTFOLIO_ITEM", "UPDATE_PORTFOLIO_API", "POST_PORTFOLIO_API"]),
+
+    // загрузка изображений
+    uploadImage(ref) {
+      const file = this.$refs[ref].files[0];
+
+      // добавлем данные в portfolioItemData
+      this.portfolioItemData[ref] = file;
+
+      const reader = new FileReader();
+
+      reader.addEventListener(
+        "load",
+        () => {
+          this[ref] = reader.result;
+        },
+        false
+      );
+
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    },
+
+    // сохраняем данные
+    savePortfolioData() {
+      this.portfolioItemData['id_card'] = this.SELECTED_CARD.id
+      this.POST_PORTFOLIO_API(this.portfolioItemData);
+    },
+
+    // обновляем данные
+    updatePortfolioData() {
+      this.UPDATE_PORTFOLIO_API(this.portfolioItemData);
+    }
+  },
+  computed: {
+    ...mapGetters(["SELECTED_CARD", "SELECTED_PORTFOLIO_ITEM"]),
+  },
+  mounted() {
+    // const token = this.$route.query.token;
+    // console.log(token)
+
+    if (this.SELECTED_PORTFOLIO_ITEM !== null) {
+      for (let key in this.portfolioItemData) {
+        this.portfolioItemData[key] = this.SELECTED_PORTFOLIO_ITEM[key]
+      }
+      this.portfolioItemData.date = this.portfolioItemData.date.toString().split("T")[0];
+
+      // установка изрбрадений из текущей едемента
+      if (this.portfolioItemData.img) {
+        this.img = this.portfolioItemData.img;
+      }
+    }
+
+    // удаляем елемент из portfolioItemData чтобы его не передавать при обновление или загрузски если он пустой
+    delete this.portfolioItemData.img;
+  },
 };
 </script>
