@@ -60,6 +60,9 @@ export default {
         case "portfolio-item":
           title = "Элемент портфолио";
           break;
+        case "card-qr":
+          title = "QR-код";
+          break;
         
       }
       return title;

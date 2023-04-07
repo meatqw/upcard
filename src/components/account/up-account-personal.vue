@@ -44,7 +44,7 @@
           <div class="section-main__btns">
             <button
               class="btn-reset btn btn--main"
-              onclick="document.location='qr-cod.html'"
+              @click="goToQRCode"
             >
               <i class="fa-solid fa-qrcode"></i>
               <span>QR-код визитки</span></button
@@ -68,7 +68,7 @@
             </button>
              
               <!-- href = ссылка на визитку-->
-            <a href="#" class="btn-reset btn btn--main" target="_blank"
+            <a :href="'https://card.upcard.online/'+SELECTED_CARD.link" class="btn-reset btn btn--main" target="_blank"
               ><i class="fa-regular fa-eye"></i>
               <span>Просмотреть визитку</span></a
             >
@@ -103,6 +103,10 @@ export default {
     redirectToEdit() {
       this.$router.push('/card-edit');
     },
+
+    goToQRCode() {
+      this.$router.push('/card-qr');
+    },  
   },
   computed: {
     ...mapGetters(["SELECTED_CARD", "CARDS"]),

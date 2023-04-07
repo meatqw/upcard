@@ -202,6 +202,16 @@
                 />
                 <span>Адрес проживания</span></label
               >
+              <label class="data-form__label label"
+                ><input
+                  v-model="cardData.link"
+                  type="text"
+                  name="Ссылка"
+                  class="input-reset input data-form__input"
+                  placeholder="upcard"
+                  required
+                />
+                <span>Ссылка* https://card.upcard.online/{{cardData.link}}</span></label>
               <div class="data-form__btns">
                 <a
                   @click="goToPage('/social-list')"
@@ -288,6 +298,7 @@ export default {
         personal_img: null,
         logo_img: null,
         date_update: null,
+        link: null,
       },
       personal_img: require("../../assets/img/avatar-card.avif"),
       logo_img: require("../../assets/img/avatar-card.avif"),
