@@ -1,9 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-// auth
-import upAuthWelcome from "../components/auth/up-auth-welcome";
-import upAuthConfirmationEmail from "../components/auth/up-auth-confirmation-email";
-import upAuthConfirmationReferral from "../components/auth/up-auth-confirmation-referral";
 // information
 import upInformationCompany from "../components/information/up-information-company";
 import upInformationPersonal from "../components/information/up-information-personal";
@@ -36,22 +32,6 @@ import upSubscriptionsListReferral from "@/components/subscriptions/up-subscript
 
 
 let routes = [
-  // auth
-  {
-    path: "/welcome",
-    name: "welcome",
-    component: upAuthWelcome,
-  },
-  {
-    path: "/auth",
-    name: "auth",
-    component: upAuthConfirmationEmail,
-  },
-  {
-    path: "/referral",
-    name: "referral",
-    component: upAuthConfirmationReferral,
-  },
   // information
   {
     path: "/personal",
