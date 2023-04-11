@@ -68,7 +68,7 @@
             </button>
              
               <!-- href = ссылка на визитку-->
-            <a :href="'https://card.upcard.online/'+SELECTED_CARD.link" class="btn-reset btn btn--main" target="_blank"
+            <a :href="'http://card.upcard.online/'+SELECTED_CARD.link" class="btn-reset btn btn--main" target="_blank"
               ><i class="fa-regular fa-eye"></i>
               <span>Просмотреть визитку</span></a
             >
@@ -113,9 +113,16 @@ export default {
     // selectedCard: []
   },
   mounted() {
+    // сохраяем токен в cookies
+    if (this.$route.query.token) {
+      let token = this.$route.query.token;
 
-    // const token = this.$route.query.token;
-    // делаем запрос на получение всех карточек пользователя 
+      var date = new Date();
+      date.setTime(date.getTime() + (60 * 60 * 1000)); // 1 hour
+      var expires = "; expires=" + date.toUTCString();
+
+      document.cookie = `token=${token}` + expires + "; path=/";
+    }
   },
 };
 </script>

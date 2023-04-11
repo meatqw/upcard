@@ -1,10 +1,10 @@
 import axios from "axios";
-import { API_DOMAIN } from '/config.js'
+import { API_DOMAIN, getCookie } from '/config.js'
 
 export default {
     // получить все социалки
     GET_SOCIAL_FROM_API({ commit }) {
-        return axios(`${API_DOMAIN}/api/v1/social?token=bm01wd-8ba97ec799c1950c4c12497a1569a9b3`, {
+        return axios(`${API_DOMAIN}/api/v1/social?token=${getCookie('token')}`, {
             method: "GET",
         })
             .then((response) => {
@@ -24,7 +24,7 @@ export default {
         for (let key in social) {
             formData.append(key, social[key]);
         } 
-        return axios(`${API_DOMAIN}/api/v1/socialUpdate/${social.id}?token=bm01wd-8ba97ec799c1950c4c12497a1569a9b3`, {
+        return axios(`${API_DOMAIN}/api/v1/socialUpdate/${social.id}?token=${getCookie('token')}`, {
             method: "PATCH",
             data: formData,
             headers: {
@@ -48,7 +48,7 @@ export default {
             formData.append(key, social[key]);
         }
 
-        return axios(`${API_DOMAIN}/api/v1/social/?token=bm01wd-8ba97ec799c1950c4c12497a1569a9b3`, {
+        return axios(`${API_DOMAIN}/api/v1/social/?token=${getCookie('token')}`, {
             method: "POST",
             data: formData,
             headers: {

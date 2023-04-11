@@ -58,7 +58,7 @@ export default {
   name: "up-card-qr",
   data() {
     return {
-      link: "https://card.upcard.online/",
+      link: "http://card.upcard.online/",
     };
   },
   computed: {
@@ -68,7 +68,7 @@ export default {
     QRCodeVue3,
   },
   mounted() {
-    this.link = "https://card.upcard.online/" + this.SELECTED_CARD.link;
+    this.link = "http://card.upcard.online/" + this.SELECTED_CARD.link;
   },
 };
 </script>

@@ -1,10 +1,11 @@
 import axios from "axios";
-import { API_DOMAIN } from '/config.js'
+import { API_DOMAIN, getCookie } from '/config.js'
+
 
 export default {
     // получить все карточки
     GET_CARDS_FROM_API({ commit }) {
-        return axios(`${API_DOMAIN}/api/v1/card?token=bm01wd-8ba97ec799c1950c4c12497a1569a9b3`, {
+        return axios(`${API_DOMAIN}/api/v1/card?token=${getCookie('token')}`, {
             method: "GET",
         })
             .then((cards) => {
@@ -24,7 +25,7 @@ export default {
         for (let key in card) {
             formData.append(key, card[key]);
         } 
-        return axios(`${API_DOMAIN}/api/v1/cardUpdate/${card.id}?token=bm01wd-8ba97ec799c1950c4c12497a1569a9b3`, {
+        return axios(`${API_DOMAIN}/api/v1/cardUpdate/${card.id}?token=${getCookie('token')}`, {
             method: "PATCH",
             data: formData,
             headers: {
@@ -48,7 +49,7 @@ export default {
             formData.append(key, card[key]);
         }
 
-        return axios(`${API_DOMAIN}/api/v1/card/?token=bm01wd-8ba97ec799c1950c4c12497a1569a9b3`, {
+        return axios(`${API_DOMAIN}/api/v1/card/?token=${getCookie('token')}`, {
             method: "POST",
             data: formData,
             headers: {

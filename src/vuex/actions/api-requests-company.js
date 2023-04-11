@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_DOMAIN } from '/config.js'
+import { API_DOMAIN, getCookie } from '/config.js'
 
 export default {
     // обновить ифнормацию о компании
@@ -10,7 +10,7 @@ export default {
         for (let key in company) {
             formData.append(key, company[key]);
         } 
-        return axios(`${API_DOMAIN}/api/v1/companyUpdate/${company.id}?token=bm01wd-8ba97ec799c1950c4c12497a1569a9b3`, {
+        return axios(`${API_DOMAIN}/api/v1/companyUpdate/${company.id}?token=${getCookie('token')}`, {
             method: "PATCH",
             data: formData,
             headers: {
@@ -34,7 +34,7 @@ export default {
             formData.append(key, company[key]);
         }
 
-        return axios(`${API_DOMAIN}/api/v1/company/?token=bm01wd-8ba97ec799c1950c4c12497a1569a9b3`, {
+        return axios(`${API_DOMAIN}/api/v1/company/?token=${getCookie('token')}`, {
             method: "POST",
             data: formData,
             headers: {
