@@ -288,18 +288,20 @@ export default {
 
   mounted() {
     // проверяем есть ли инфо о компании у выбранной карточке
-    if (
-      this.SELECTED_CARD.id_company_info !== null &&
-      Object.keys(this.SELECTED_CARD.id_company_info).length !== 0
-    ) {
-      // берем инфрмацию из выбранной карточки (инфо о компании)
-      for (let i in this.companyData) {
-        this.companyData[i] = this.SELECTED_CARD.id_company_info[i];
-      }
+    if (this.SELECT_CARD) {
+      if (
+        this.SELECTED_CARD.id_company_info !== null &&
+        Object.keys(this.SELECTED_CARD.id_company_info).length !== 0
+      ) {
+        // берем инфрмацию из выбранной карточки (инфо о компании)
+        for (let i in this.companyData) {
+          this.companyData[i] = this.SELECTED_CARD.id_company_info[i];
+        }
 
-      // установка изрбрадений из текущей карточки (инфо о компании)
-      if (this.companyData.logo_img) {
-        this.logo_img = this.API_DOMAIN + this.companyData.logo_img;
+        // установка изрбрадений из текущей карточки (инфо о компании)
+        if (this.companyData.logo_img) {
+          this.logo_img = this.API_DOMAIN + this.companyData.logo_img;
+        }
       }
     }
     // удаляем елемент из companyData чтобы его не передавать при обновление или загрузски если он пустой

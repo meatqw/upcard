@@ -367,24 +367,26 @@ export default {
     ...mapGetters(["SELECTED_CARD", "SOCIAL_DATA"]),
   },
   mounted() {
+    if (this.SELECTED_CARD) {
     // проверяем есть ли выбранная визитка
-    if (Object.keys(this.SELECTED_CARD).length !== 0) {
-      // берем инфрмацию из выбранной карточки
-      for (let i in this.cardData) {
-        this.cardData[i] = this.SELECTED_CARD[i];
-      }
+      if (Object.keys(this.SELECTED_CARD).length !== 0) {
+        // берем инфрмацию из выбранной карточки
+        for (let i in this.cardData) {
+          this.cardData[i] = this.SELECTED_CARD[i];
+        }
 
-      // установка изрбрадений из текущей карточки
-      if (this.cardData.logo_img) {
-        this.logo_img = this.API_DOMAIN + this.cardData.logo_img;
-      }
+        // установка изрбрадений из текущей карточки
+        if (this.cardData.logo_img) {
+          this.logo_img = this.API_DOMAIN + this.cardData.logo_img;
+        }
 
-      if (this.cardData.personal_img) {
-        this.personal_img = this.API_DOMAIN + this.cardData.personal_img;
-      }
+        if (this.cardData.personal_img) {
+          this.personal_img = this.API_DOMAIN + this.cardData.personal_img;
+        }
 
-      // приводим дату к нудному виду
-      this.cardData.dob = this.cardData.dob.toString().split("T")[0];
+        // приводим дату к нудному виду
+        this.cardData.dob = this.cardData.dob.toString().split("T")[0];
+      }
     }
 
     // удаляем елемент из cardData чтобы его не передавать при обновление или загрузски если он пустой
