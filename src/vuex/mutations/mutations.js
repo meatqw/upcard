@@ -56,4 +56,7 @@ export default {
     POST_PORTFOLIO: (state, portfolioItem) => {
         state.selectedPortfolioItem = portfolioItem;
     },
+    SET_TOKEN_STATUS_TO_STATE: (state, tokenStatus) => {
+        state.tokenStatus = tokenStatus;
+    },
   };

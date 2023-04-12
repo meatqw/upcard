@@ -67,7 +67,7 @@
         <!-- значение баланса -->
         <div class="header__balance header-balance" >
           <span class="header-balance__name">Ваш баланс: </span>
-          <span class="header-balance__value">200 руб.</span>
+          <span class="header-balance__value">0 руб.</span>
         </div>
         <!-- кнопка создания новой визитки -->
         <button @click="routingFromMenu('/personal')"

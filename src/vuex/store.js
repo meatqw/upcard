@@ -5,6 +5,8 @@ import apiRequestsCard from "./actions/api-requests-card";
 import apiRequestsCompany from "./actions/api-requests-company";
 import apiRequestsSocial from "./actions/api-requests-social";
 import apiRequestsPortfolio from "./actions/api-requests-portfolio";
+import apiRequestsToken from "./actions/api-requests-token";
+
 
 
 import getters from "./getters/getters";
@@ -15,7 +17,9 @@ const actions = {
     ...apiRequestsCompany,
     ...commotActions,
     ...apiRequestsSocial,
-    ...apiRequestsPortfolio
+    ...apiRequestsPortfolio,
+    ...apiRequestsToken
+
 }
 
 export default createStore({
@@ -39,7 +43,10 @@ export default createStore({
         // текущий выбранный едемент портфолио
         selectedPortfolioItem: null,
         // список элементов портфолио
-        portfolio: []
+        portfolio: [],
+
+        //
+        tokenStatus: false,
     },
     mutations,
     actions,

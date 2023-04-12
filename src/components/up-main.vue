@@ -1,6 +1,6 @@
 <template>
-  <upHeader v-if="showHeadInfo" />
-  <upHeaderInfo :title="pageTitle" v-else />
+  <upHeader v-if="showHeadInfo && tokenStatus" />
+  <upHeaderInfo :title="pageTitle" v-else-if="!showHeadInfo && tokenStatus" />
   <router-view> </router-view>
   <upFooter />
 </template>
@@ -9,12 +9,15 @@
 import upHeader from "@/components/home/up-header.vue";
 import upHeaderInfo from "@/components/home/up-header-info.vue";
 import upFooter from "@/components/home/up-footer.vue";
+import { getCookie } from '/config.js'
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "up-main",
   data() {
     return {
       pageTitle: "",
+      tokenStatus: false,
     };
   },
   components: {
@@ -23,6 +26,7 @@ export default {
     upHeaderInfo,
   },
   computed: {
+    ...mapGetters(["TOKEN_STATUS",]),
     // не отображаем иформации в header если это страницы авторизации
     showHeadInfo() {
       return this.$route.path === "/account";
@@ -35,6 +39,8 @@ export default {
     },
   },
   methods: {
+    ...mapActions(["GET_CHECK_TOKEN_FROM_API",]),
+
     // определяем заголовок страницы
     getPageTitle(route) {
       let title = "";
@@ -68,5 +74,21 @@ export default {
       return title;
     },
   },
+  mounted() {
+    let token = getCookie('token');
+
+    if (token == null) {
+      token = this.$route.query.token;
+    } 
+
+    // проверяем токен
+    this.GET_CHECK_TOKEN_FROM_API(token).then(() => {
+        this.tokenStatus = this.TOKEN_STATUS.status;
+        if (!this.tokenStatus) {
+          // если статус false редиректим на еррор
+          this.$router.push('/error');
+        }
+    });
+  }
 };
 </script>

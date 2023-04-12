@@ -24,6 +24,9 @@ export default {
     },
     PORTFOLIO(state){
         return state.portfolio;
-    }
+    },
+    TOKEN_STATUS(state) {
+        return state.tokenStatus;
+    },
     
   };
