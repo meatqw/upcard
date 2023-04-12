@@ -30,7 +30,7 @@ import upAccountExitConfirmation from "@/components/account/up-account-exit-conf
 import upSubscriptionsList from "@/components/subscriptions/up-subscriptions-list.vue";
 import upSubscriptionsListReferral from "@/components/subscriptions/up-subscriptions-list-referral.vue";
 // error
-import upError from "@/components/home/up-error.vue";
+import upRedirect from "@/components/home/up-redirect.vue";
 
 
 let routes = [
@@ -153,9 +153,9 @@ let routes = [
     component: upSubscriptionsListReferral,
   },
   {
-    path: "/error",
-    name: "error",
-    component: upError,
+    path: "/redirect",
+    name: "redicrec",
+    component: upRedirect,
   }
  
 ];

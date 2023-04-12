@@ -86,7 +86,7 @@ export default {
         this.tokenStatus = this.TOKEN_STATUS.status;
         if (!this.tokenStatus) {
           // если статус false редиректим на еррор
-          this.$router.push('/error');
+          this.$router.push('/redirect');
         }
     });
   }

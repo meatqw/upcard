@@ -88,7 +88,7 @@
         <div class="section-main__container">
           <div class="section-main__card main-card">
             <div class="main-card__info">
-              Здесь вы сможете увидеть ваши везитки
+              Здесь вы сможете увидеть ваши визитки
             </div>
           </div>
         </div>
