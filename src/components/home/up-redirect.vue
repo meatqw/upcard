@@ -49,6 +49,7 @@
   </template>
   
   <script>
+  import { mapActions, mapGetters } from "vuex";
   export default {
     name: "up-home-redirect",
     methods: {
