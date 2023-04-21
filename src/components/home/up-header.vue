@@ -64,9 +64,10 @@
         </ul>
       </nav>
       <div class="header__right" v-if="!showHeadInfo">
+        
         <!-- значение баланса -->
         <div class="header__balance header-balance" >
-          <span class="header-balance__name">Ваш баланс: </span>
+          <span class="header-balance__name">Ваш баланс:</span>
           <span class="header-balance__value">0 руб.</span>
         </div>
         <!-- кнопка создания новой визитки -->
@@ -121,7 +122,7 @@ export default {
     
     // не отображаем иформации в header если это страницы авторизации
     showHeadInfo() {
-      return this.$route.path === '/welcome' || this.$route.path === '/auth' || this.$route.path === '/referral';
+      return this.$route.path === '/welcome' || this.$route.path === '/auth' || this.$route.path === '/referral' || this.$route.path === '/load' ;
     },
     // класс меню
     menuShowClass() {

@@ -31,6 +31,8 @@ import upSubscriptionsList from "@/components/subscriptions/up-subscriptions-lis
 import upSubscriptionsListReferral from "@/components/subscriptions/up-subscriptions-list-referral.vue";
 // error
 import upRedirect from "@/components/home/up-redirect.vue";
+// load 
+import upLoad from "@/components/home/up-loader.vue";
 
 
 let routes = [
@@ -156,6 +158,11 @@ let routes = [
     path: "/redirect",
     name: "redicrec",
     component: upRedirect,
+  },
+  {
+    path: "/load",
+    name: "load",
+    component: upLoad,
   }
  
 ];

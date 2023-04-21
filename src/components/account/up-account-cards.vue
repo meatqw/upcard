@@ -13,7 +13,7 @@
         <button class="btn-reset list-of-cards__card card-item">
           <!-- изображение -->
           <div class="card-item__img">
-            <picture
+            <picture v-if="card.personal_img"
               ><source
                 :srcset="API_DOMAIN + card.personal_img"
                 type="image/avif" />
@@ -28,6 +28,23 @@
                 height="65"
                 alt="avatar"
             /></picture>
+
+            <picture v-else>
+                <source
+                  :srcset="personal_img"
+                  type="image/avif" />
+                <source
+                  :srcset="personal_img"
+                  type="image/webp" />
+                <img
+                  loading="lazy"
+                  :src="personal_img"
+                  class="image"
+                  width="65"
+                  height="65"
+                  alt="avatar"
+              />
+              </picture>
           </div>
           <div class="card-item__info">
             <!-- имя -->
@@ -58,6 +75,7 @@ export default {
   data() {
     return {
       API_DOMAIN: API_DOMAIN,
+      personal_img: require("../../assets/img/avatar-card.avif"),
     };
   },
   methods: {

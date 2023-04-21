@@ -93,7 +93,8 @@
                   v-model="companyData.phone"
                   name="Телефон компании"
                   class="input-reset input data-form__input"
-                  placeholder="+7 (XXX) XXX XX-XX"
+                  v-mask="'+7(###)-###-##-##'"
+                  placeholder="+7(___)___-__-__"
                 />
                 <span>Телефон компании</span></label
               >
@@ -104,6 +105,7 @@
                   name="Рабочий телефон"
                   class="input-reset input data-form__input"
                   placeholder="XX-XX-XX"
+                  v-mask="'##-##-##'"
                 />
                 <span>Рабочий телефон</span></label
               >
@@ -113,17 +115,18 @@
                   name="Сайт компании"
                   v-model="companyData.company_site"
                   class="input-reset input data-form__input"
-                  placeholder="thebestcompany.com"
+                  placeholder="https://thebestcompany.com"
                 />
                 <span>Сайт компании</span></label
               >
               <label class="data-form__label label"
                 ><input
-                  type="number"
+                  type="text"
                   name="факс"
                   v-model="companyData.fax"
                   class="input-reset input data-form__input"
                   placeholder="98382489225"
+                  v-mask="'###########'"
                 />
                 <span>Факс</span></label
               >
@@ -182,14 +185,19 @@
       </section>
     </div>
   </main>
+  <upNotificationMessage v-if="showMsg" v-on:close="closeNotification" :msgText="msgText"></upNotificationMessage>
 </template>
 
 <script>
+import upNotificationMessage from "../notification/up-notification-message.vue";
 import { mapActions, mapGetters } from "vuex";
 import { API_DOMAIN } from "/config.js";
 
 export default {
   name: "up-information-company",
+  components: {
+    upNotificationMessage
+  },
   data() {
     return {
       API_DOMAIN: API_DOMAIN,
@@ -213,6 +221,10 @@ export default {
         work_phone: null,
       },
       logo_img: require("../../assets/img/avatar-card.avif"),
+
+      // данные для уведомлялки
+      msgText: '',
+      showMsg: false,
     };
   },
   methods: {
@@ -225,9 +237,18 @@ export default {
       "SET_SOCIAL_PATH",
     ]),
 
+    // ЗАКРЫТЬ ОТКНО УВЕДОМЛЕНИЯ
+    closeNotification(data) {
+      this.showMsg = data
+    },
+
     // обновление ифно о компании
     updateCompany() {
       this.UPDATE_COMPANY_API(this.companyData);
+
+       // показываем уведомление
+      this.msgText = 'Данные обновлены'
+      this.showMsg = true;
     },
 
     // создание ифно о компании
@@ -241,6 +262,10 @@ export default {
           id_company_info: this.COMPANY.id,
         });
       });
+
+       // показываем уведомление
+      this.msgText = 'Данные сохранены'
+      this.showMsg = true;
     },
 
     // загрузка изображений

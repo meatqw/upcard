@@ -4,7 +4,7 @@
       <!-- Наименование страницы -->
       <h1 class="header__title">{{ title }}</h1>
       <!-- боковое меню -->
-      <div class="header__right">
+      <div class="header__right" v-if="$route.path != '/load'">
         <!-- значение баланса -->
         <div class="header__balance header-balance">
           <span class="header-balance__name">Ваш баланс: </span>

@@ -138,7 +138,7 @@
                   class="input-reset input data-form__input"
                   placeholder="Программист"
                 />
-                <span>Специализация</span></label
+                <span>Специализация*</span></label
               >
               <label class="data-form__label label"
                 ><input
@@ -146,7 +146,9 @@
                   type="tel"
                   name="Телефон"
                   class="input-reset input data-form__input input-tel"
-                  placeholder="+7 (XXX) XXX XX-XX"
+                  v-mask="'+7(###)-###-##-##'"
+                  placeholder="+7(___)___-__-__"
+                  inputmode="text"
                   required
                 />
                 <span>Мобильный телефон*</span></label
@@ -155,9 +157,11 @@
                 ><input
                   v-model="cardData.home_phone"
                   type="tel"
+                  v-mask="'##-##-##'"
                   name="Домашний телефон"
                   class="input-reset input data-form__input"
                   placeholder="XX-XX-XX"
+                  
                 />
                 <span>Домашний телефон</span></label
               >
@@ -211,7 +215,10 @@
                   placeholder="upcard"
                   required
                 />
-                <span>Ссылка* https://card.upcard.online/{{cardData.link}}</span></label>
+                <span
+                  >Ссылка* https://card.upcard.online/{{ cardData.link }}</span
+                ></label
+              >
               <div class="data-form__btns">
                 <a
                   @click="goToPage('/social-list')"
@@ -225,7 +232,8 @@
                   >Информация о компании</a
                 >
                 <a
-                  href="appearance.html"
+                  v-if="Object.keys(this.SELECTED_CARD).length !== 0"
+                  @click="goToPage('/card-appearance')"
                   class="btn-reset btn btn--fit data-form__btn"
                   >Внешний вид визитки</a
                 >
@@ -269,39 +277,55 @@
       </section>
     </div>
   </main>
+
+  <upNotificationMessage v-if="showMsg" v-on:close="closeNotification" :msgText="msgText"></upNotificationMessage>
+  
 </template>
 
+
+
+
+
 <script>
+import upNotificationMessage from "../notification/up-notification-message.vue";
 import { mapActions, mapGetters } from "vuex";
 import { API_DOMAIN } from "/config.js";
 
+
 export default {
   name: "up-information-personal",
+  components: {
+    upNotificationMessage
+  },
   data() {
     return {
       API_DOMAIN: API_DOMAIN,
 
       // информация о карточке
       cardData: {
-        id: null,
-        card_name: null,
-        name: null,
-        surname: null,
-        patronymic: null,
-        spec: null,
-        phone: null,
-        home_phone: null,
-        personal_site: null,
-        email: null,
-        dob: null,
-        address: null,
-        personal_img: null,
-        logo_img: null,
-        date_update: null,
-        link: null,
+        id: "",
+        card_name: "",
+        name: "",
+        surname: "",
+        patronymic: "",
+        spec: "",
+        phone: "",
+        home_phone: "",
+        personal_site: "",
+        email: "",
+        dob: "",
+        address: "",
+        personal_img: "",
+        logo_img: "",
+        date_update: "",
+        link: "",
       },
       personal_img: require("../../assets/img/avatar-card.avif"),
       logo_img: require("../../assets/img/avatar-card.avif"),
+
+      // данные для уведомлялки
+      msgText: '',
+      showMsg: false,
     };
   },
   methods: {
@@ -312,14 +336,53 @@ export default {
       "SET_SOCIAL_PATH",
     ]),
 
+    // ЗАКРЫТЬ ОТКНО УВЕДОМЛЕНИЯ
+    closeNotification(data) {
+      this.showMsg = data
+    },
+
     // обновление картчоки
     updateCard() {
-      this.UPDATE_CARD_API(this.cardData);
+      if (
+        this.cardData.email != "" &&
+        this.cardData.name != "" &&
+        this.cardData.phone != "" &&
+        this.cardData.card_name != "" &&
+        this.cardData.spec != "" &&
+        this.cardData.link != ""
+      ) {
+        this.UPDATE_CARD_API(this.cardData);
+
+        // показываем уведомление
+        this.msgText = 'Данные обновлены'
+        this.showMsg = true;
+        
+      } else {
+        this.msgText = 'Данные не обновлены. Заполните обязательные поля*'
+        this.showMsg = true;
+      }
     },
 
     // создание карточки
     addCard() {
-      this.POST_CARD_API(this.cardData);
+      if (
+        this.cardData.email != "" &&
+        this.cardData.name != "" &&
+        this.cardData.phone != "" &&
+        this.cardData.card_name != "" &&
+        this.cardData.link != ""
+      ) {
+        this.POST_CARD_API(this.cardData);
+
+        // показываем уведомление
+        this.msgText = 'Данные сохранены'
+        this.showMsg = true;
+        
+      } else {
+        this.msgText = 'Данные не сохранены. Заполните обязательные поля*'
+        this.showMsg = true;
+      }
+      
     },
 
     // загрузка изображений
@@ -368,7 +431,7 @@ export default {
   },
   mounted() {
     if (this.SELECTED_CARD) {
-    // проверяем есть ли выбранная визитка
+      // проверяем есть ли выбранная визитка
       if (Object.keys(this.SELECTED_CARD).length !== 0) {
         // берем инфрмацию из выбранной карточки
         for (let i in this.cardData) {

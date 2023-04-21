@@ -9,7 +9,7 @@
           <div class="section-main__card main-card">
             <!-- изображение -->
             <div class="main-card__img">
-              <picture
+              <picture v-if="SELECTED_CARD.personal_img"
                 ><source
                   :srcset="API_DOMAIN + SELECTED_CARD.personal_img"
                   type="image/avif" />
@@ -24,6 +24,23 @@
                   height="230"
                   alt="avatar"
               /></picture>
+
+              <picture v-else>
+                <source
+                  :srcset="personal_img"
+                  type="image/avif" />
+                <source
+                  :srcset="personal_img"
+                  type="image/webp" />
+                <img
+                  loading="lazy"
+                  :src="personal_img"
+                  class="image"
+                  width="230"
+                  height="230"
+                  alt="avatar"
+              />
+              </picture>
             </div>
             <div class="main-card__info">
               <div class="main-card__top">
@@ -111,6 +128,7 @@ export default {
   data() {
     return {
       API_DOMAIN: API_DOMAIN,
+      personal_img: require("../../assets/img/avatar-card.avif"),
     };
   },
   components: {
@@ -132,16 +150,7 @@ export default {
     // selectedCard: []
   },
   mounted() {
-    // сохраяем токен в cookies
-    if (this.$route.query.token) {
-      let token = this.$route.query.token;
-
-      var date = new Date();
-      date.setTime(date.getTime() + 60 * 60 * 1000); // 1 hour
-      var expires = "; expires=" + date.toUTCString();
-
-      document.cookie = `token=${token}` + expires + "; path=/";
-    }
+    
   },
 };
 </script>

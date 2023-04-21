@@ -14,7 +14,7 @@ export default {
                 return status;
             })
             .catch((error) => {
-                console.log(error);
+                commit("SET_TOKEN_STATUS_TO_STATE", error.response.data);
                 return error;
             });
     },

@@ -1,6 +1,6 @@
 <template>
-  <upHeader v-if="showHeadInfo && tokenStatus" />
-  <upHeaderInfo :title="pageTitle" v-else-if="!showHeadInfo && tokenStatus" />
+  <upHeader v-if="showHeadInfo" />
+  <upHeaderInfo :title="pageTitle" v-else-if="!showHeadInfo" />
   <router-view> </router-view>
   <upFooter />
 </template>
@@ -9,7 +9,7 @@
 import upHeader from "@/components/home/up-header.vue";
 import upHeaderInfo from "@/components/home/up-header-info.vue";
 import upFooter from "@/components/home/up-footer.vue";
-import { getCookie } from '/config.js'
+import { getCookie } from "/config.js";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -26,8 +26,9 @@ export default {
     upHeaderInfo,
   },
   computed: {
-    ...mapGetters(["TOKEN_STATUS",]),
+    ...mapGetters(["TOKEN_STATUS"]),
     // не отображаем иформации в header если это страницы авторизации
+
     showHeadInfo() {
       return this.$route.path === "/account";
     },
@@ -36,10 +37,15 @@ export default {
     // изменяем заголовок при изменении пути маршрутизации
     $route(to) {
       this.pageTitle = this.getPageTitle(to);
+
+      // не делаем проверку в лоад так как там она уде есть
+      if (this.$route.path != '/load') {
+        this.checkToken();
+      }
     },
   },
   methods: {
-    ...mapActions(["GET_CHECK_TOKEN_FROM_API",]),
+    ...mapActions(["GET_CHECK_TOKEN_FROM_API"]),
 
     // определяем заголовок страницы
     getPageTitle(route) {
@@ -69,26 +75,34 @@ export default {
         case "card-qr":
           title = "QR-код";
           break;
-        
       }
       return title;
     },
+
+    // проверяем наличие и валидности токена доступа
+    checkToken() {
+      let token = getCookie("token");
+
+      if (token == null) {
+        token = this.$route.query.token;
+      }
+
+      if (token != null && token != undefined) {
+        // проверяем токен
+        this.GET_CHECK_TOKEN_FROM_API(token).then(() => {
+          this.tokenStatus = this.TOKEN_STATUS.status;
+          if (!this.tokenStatus) {
+            // если статус false редиректим на еррор
+            this.$router.push("/load");
+          }
+        });
+      } else {
+        this.$router.push("/load");
+      }
+    },
   },
   mounted() {
-    let token = getCookie('token');
-
-    if (token == null) {
-      token = this.$route.query.token;
-    } 
-
-    // проверяем токен
-    this.GET_CHECK_TOKEN_FROM_API(token).then(() => {
-        this.tokenStatus = this.TOKEN_STATUS.status;
-        if (!this.tokenStatus) {
-          // если статус false редиректим на еррор
-          this.$router.push('/redirect');
-        }
-    });
-  }
+    // this.checkToken();
+  },
 };
 </script>
