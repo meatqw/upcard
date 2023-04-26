@@ -10,7 +10,7 @@ export default {
         for (let key in company) {
             formData.append(key, company[key]);
         } 
-        return axios(`${API_DOMAIN}/api/v1/companyUpdate/${company.id}?token=${getCookie('token')}`, {
+        return axios(`${API_DOMAIN}/api/v1/companyUpdate/${company.id}/?token=${getCookie('token')}`, {
             method: "PATCH",
             data: formData,
             headers: {

@@ -4,7 +4,7 @@ import { API_DOMAIN, getCookie } from '/config.js'
 export default {
     // получить все социалки
     GET_SOCIAL_FROM_API({ commit }) {
-        return axios(`${API_DOMAIN}/api/v1/social?token=${getCookie('token')}`, {
+        return axios(`${API_DOMAIN}/api/v1/social/?token=${getCookie('token')}`, {
             method: "GET",
         })
             .then((response) => {
@@ -24,7 +24,7 @@ export default {
         for (let key in social) {
             formData.append(key, social[key]);
         } 
-        return axios(`${API_DOMAIN}/api/v1/socialUpdate/${social.id}?token=${getCookie('token')}`, {
+        return axios(`${API_DOMAIN}/api/v1/socialUpdate/${social.id}/?token=${getCookie('token')}`, {
             method: "PATCH",
             data: formData,
             headers: {
