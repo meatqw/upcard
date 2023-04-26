@@ -231,12 +231,12 @@
                   class="btn-reset btn btn--fit data-form__btn"
                   >Информация о компании</a
                 >
-                <a
+                <!-- <a
                   v-if="Object.keys(this.SELECTED_CARD).length !== 0"
                   @click="goToPage('/card-appearance')"
                   class="btn-reset btn btn--fit data-form__btn"
                   >Внешний вид визитки</a
-                >
+                > -->
               </div>
             </div>
 
@@ -318,6 +318,7 @@ export default {
         personal_img: "",
         logo_img: "",
         date_update: "",
+        id_appearance: 1,
         link: "",
       },
       personal_img: require("../../assets/img/avatar-card.avif"),

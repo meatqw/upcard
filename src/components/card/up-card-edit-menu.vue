@@ -18,21 +18,16 @@
               >
             </li>
             <li class="list-menu__item">
-              <a class="list-menu__link"
+              <a class="list-menu__link" 
                 ><i class="fa-regular fa-calendar-days"></i>
                 <span>Календарь приема</span></a
               >
             </li>
-            <!-- <li class="list-menu__item">
+            <li class="list-menu__item"  @click="goToPage('/card-appearance')">
               <button class="btn-reset btn btn--med list-menu__btn">
-                Добавить портфолио
+                Внешний вид визитки
               </button>
             </li>
-            <li class="list-menu__item">
-              <button class="btn-reset btn btn--med list-menu__btn">
-                Добавить календарь
-              </button>
-            </li> -->
             <li class="list-menu__item">
               <button
                 class="btn-reset btn btn--med btn--border list-menu__btn"

@@ -16,8 +16,9 @@
                     id="radio-1"
                     type="radio"
                     name="appearance"
-                    value="1"
+                    value="3"
                     checked="checked"
+                    v-model="appearance"
                   />
                   <label class="radio-btn__content" for="radio-1"
                     ><div class="appearance__colors">
@@ -42,7 +43,8 @@
                     id="radio-2"
                     type="radio"
                     name="appearance"
-                    value="2"
+                    value="1"
+                    v-model="appearance"
                   />
                   <label class="radio-btn__content" for="radio-2"
                     ><div class="appearance__colors">
@@ -67,7 +69,8 @@
                     id="radio-3"
                     type="radio"
                     name="appearance"
-                    value="3"
+                    value="4"
+                    v-model="appearance"
                   />
                   <label class="radio-btn__content" for="radio-3"
                     ><div class="appearance__colors">
@@ -92,7 +95,8 @@
                     id="radio-4"
                     type="radio"
                     name="appearance"
-                    value="4"
+                    value="2"
+                    v-model="appearance"
                   />
                   <label class="radio-btn__content" for="radio-4"
                     ><div class="appearance__colors">
@@ -118,6 +122,7 @@
                     type="radio"
                     name="appearance"
                     value="5"
+                    v-model="appearance"
                   />
                   <label class="radio-btn__content" for="radio-5"
                     ><div class="appearance__colors">
@@ -162,7 +167,7 @@
               </li>
             </ul>
             <div class="btns-panel">
-              <button class="btn-reset appearance__btn btn btn--big">
+              <button class="btn-reset appearance__btn btn btn--big" type="button" @click="saveAppearance()">
                 Сохранить выбранный стиль
               </button>
             </div>
@@ -171,10 +176,50 @@
       </section>
     </div>
   </main>
+
+  <upNotificationMessage v-if="showMsg" v-on:close="closeNotification" :msgText="msgText"></upNotificationMessage>
 </template>
 
 <script>
+import upNotificationMessage from "../notification/up-notification-message.vue";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "up-card-appearance",
+  data() {
+    return {
+      msgText: '',
+      showMsg: false,
+      appearance: ''
+    }
+  },
+  computed: {
+    ...mapGetters(['SELECTED_CARD'])
+  },
+  methods: {
+    ...mapActions([
+      "UPDATE_CARD_API",
+    ]),
+
+    // ЗАКРЫТЬ ОТКНО УВЕДОМЛЕНИЯ
+    closeNotification(data) {
+      this.showMsg = data
+    },
+
+    saveAppearance() {
+      this.UPDATE_CARD_API({'id': this.SELECTED_CARD.id, 'id_appearance': this.appearance});
+      this.msgText = 'Стиль обновлен'
+      this.showMsg = true;
+    },
+  },
+  components: {
+    upNotificationMessage
+  },
+  mounted() {
+    if (this.SELECTED_CARD.id_appearance) {
+      this.appearance = this.SELECTED_CARD.id_appearance.id;
+    } else {
+      console.error("No style in this card");
+    }
+  }
 };
 </script>
