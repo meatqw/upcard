@@ -49,14 +49,6 @@
                 Добавить элемент
               </button>
             </li>
-            <li class="list-of-card__item">
-              <button
-                class="btn-reset btn btn--med btn--border list-menu__btn"
-                onclick="document.location='delete-portfolio.html'"
-              >
-                Удалить портфолио
-              </button>
-            </li>
           </ul>
         </div>
       </section>

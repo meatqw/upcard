@@ -26,7 +26,7 @@ export default {
     upHeaderInfo,
   },
   computed: {
-    ...mapGetters(["TOKEN_STATUS"]),
+    ...mapGetters(["TOKEN_STATUS", "DELETE_DATA"]),
     // не отображаем иформации в header если это страницы авторизации
 
     showHeadInfo() {
@@ -74,6 +74,9 @@ export default {
           break;
         case "card-qr":
           title = "QR-код";
+          break;
+        case 'delete':
+          title = `Удалить ${this.DELETE_DATA.info}`;
           break;
       }
       return title;

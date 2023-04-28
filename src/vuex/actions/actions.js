@@ -16,5 +16,8 @@ export default {
     SELECT_PORTFOLIO_ITEM({ commit }, portfolioItem) {
         commit("SET_SELECTED_PORTFOLIO_ITEM", portfolioItem);
     },
+    SET_DELETE_DATA({ commit }, deleteData) {
+        commit("SET_DELETE_DATA", deleteData);
+    }
 
 };

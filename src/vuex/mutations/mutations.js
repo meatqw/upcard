@@ -59,4 +59,7 @@ export default {
     SET_TOKEN_STATUS_TO_STATE: (state, tokenStatus) => {
         state.tokenStatus = tokenStatus;
     },
+    SET_DELETE_DATA: (state, deleteData) => {
+        state.deleteData = deleteData;
+    }
   };

@@ -28,5 +28,8 @@ export default {
     TOKEN_STATUS(state) {
         return state.tokenStatus;
     },
+    DELETE_DATA(state) {
+        return state.deleteData;
+    }
     
   };

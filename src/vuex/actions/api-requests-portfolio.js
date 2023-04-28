@@ -64,4 +64,17 @@ export default {
                 return error;
             });
     },
+    DELETE_PORTFOLIO_API({ commit }, cardID) {
+        return axios(`${API_DOMAIN}/api/v1/portfolioDelete/${cardID}/?token=${getCookie('token')}`, {
+            method: "DELETE",
+        })
+            .then((response) => {
+                commit("SET_DELETE_DATA", response.data);
+                return response;
+            })
+            .catch((error) => {
+                console.log(error);
+                return error;
+            });
+    }
 };

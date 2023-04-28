@@ -27,9 +27,9 @@
                type="button">
                 Сохранить
               </button>
-              <button
+              <button v-if="social"
                 class="btn-reset btn btn-form btn--border confirmation-form__btn"
-                type="button"
+                type="button" 
                 @click="delSocial()"
               >
               
@@ -61,7 +61,11 @@ export default {
       let newSocialData = {}
       newSocialData[this.SOCIAL] = this.social
       newSocialData['id'] = this.SOCIAL_DATA.id
-      this.UPDATE_SOCIAL_API(newSocialData)
+      
+      this.UPDATE_SOCIAL_API(newSocialData).then(() => {
+        this.$router.push('/social-list')
+      });
+     
     },
     delSocial() {
       this.social = null

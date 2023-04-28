@@ -32,10 +32,10 @@ export default {
   data() {
     return {
       socialData: {
-        beehance: null,
+        behance: null,
         facebook: null,
         github: null,
-        gmail: null,
+        google: null,
         // id: null,
         instagram: null,
         linkedin: null,

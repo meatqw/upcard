@@ -76,28 +76,34 @@
                   class="input-reset input data-form__input input-description"
                   placeholder="Эта работа была выполнена с помощью черной краски."
                   required
+                  maxlength="150"
                   v-model="portfolioItemData.description"
                 />
                 <span>Описание*</span></label
               >
             </div>
             <div class="btns-panel data-form__btns">
-              <button class="btn-reset btn btn--big data-form__btn" type="button"
-              v-if="SELECTED_PORTFOLIO_ITEM == null"
-              @click="savePortfolioData"
+              <button
+                class="btn-reset btn btn--big data-form__btn"
+                type="button"
+                v-if="SELECTED_PORTFOLIO_ITEM == null"
+                @click="savePortfolioData"
               >
                 Сохранить данные
               </button>
 
-              <button class="btn-reset btn btn--big data-form__btn" type="button"
-              v-else
-              @click="updatePortfolioData"
+              <button
+                class="btn-reset btn btn--big data-form__btn"
+                type="button"
+                v-else
+                @click="updatePortfolioData"
               >
                 Обновить данные
               </button>
 
-              <button
-                class="btn-reset btn btn--big btn--border data-form__btn" type="button"
+              <button v-if="SELECTED_PORTFOLIO_ITEM != null"
+                class="btn-reset btn btn--big btn--border data-form__btn"
+                type="button" @click="deleteItem()"
               >
                 Удалить элемент
               </button>
@@ -107,30 +113,48 @@
       </section>
     </div>
   </main>
+
+  <upNotificationMessage
+    v-if="showMsg"
+    v-on:close="closeNotification"
+    :msgText="msgText"
+  ></upNotificationMessage>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
 import { API_DOMAIN } from "/config.js";
+import upNotificationMessage from "../notification/up-notification-message.vue";
 
-export default {
+export default{
   name: "up-portfolio-item-edit",
+  components: {
+    upNotificationMessage,
+  },
   data() {
     return {
       API_DOMAIN: API_DOMAIN,
 
       portfolioItemData: {
-        name: null,
-        date: null,
-        description: null,
+        name: "",
+        date: "",
+        description: "",
         img: null,
         id: null,
       },
+       // данные для уведомлялки
+       msgText: "",
+      showMsg: false,
       img: require("../../assets/img/avatar-card.avif"),
     };
   },
   methods: {
-    ...mapActions(["SELECT_PORTFOLIO_ITEM", "UPDATE_PORTFOLIO_API", "POST_PORTFOLIO_API"]),
+    ...mapActions([
+      "SELECT_PORTFOLIO_ITEM",
+      "UPDATE_PORTFOLIO_API",
+      "POST_PORTFOLIO_API",
+      "SET_DELETE_DATA"
+    ]),
 
     // загрузка изображений
     uploadImage(ref) {
@@ -156,14 +180,47 @@ export default {
 
     // сохраняем данные
     savePortfolioData() {
-      this.portfolioItemData['id_card'] = this.SELECTED_CARD.id
-      this.POST_PORTFOLIO_API(this.portfolioItemData);
+      this.portfolioItemData["id_card"] = this.SELECTED_CARD.id;
+
+      if (
+        this.portfolioItemData.name.length &&
+        this.portfolioItemData.description.length &&
+        this.portfolioItemData.date.length
+      ) {
+        this.POST_PORTFOLIO_API(this.portfolioItemData);
+        this.msgText = 'Данные сохранены.'
+        this.showMsg = true;
+      } else {
+        this.msgText = 'Данные не сохранены. Заполните обязательные поля*'
+        this.showMsg = true;
+      }
     },
 
     // обновляем данные
     updatePortfolioData() {
-      this.UPDATE_PORTFOLIO_API(this.portfolioItemData);
-    }
+      if (
+        this.portfolioItemData.name.length &&
+        this.portfolioItemData.description.length &&
+        this.portfolioItemData.date.length
+      ) {
+        this.UPDATE_PORTFOLIO_API(this.portfolioItemData);
+        this.msgText = 'Данные обновлены.'
+        this.showMsg = true;
+      } else {
+        this.msgText = 'Данные не обновлены. Заполните обязательные поля*'
+        this.showMsg = true;
+      }
+    },
+
+    deleteItem() {
+      this.SET_DELETE_DATA({'type': 'portfolio', 'info': 'элемент порфолио', 'id': this.portfolioItemData.id});
+      this.$router.push('/delete')
+    },
+
+    // ЗАКРЫТЬ ОТКНО УВЕДОМЛЕНИЯ
+    closeNotification(data) {
+      this.showMsg = data
+    },
   },
   computed: {
     ...mapGetters(["SELECTED_CARD", "SELECTED_PORTFOLIO_ITEM"]),
@@ -174,9 +231,11 @@ export default {
 
     if (this.SELECTED_PORTFOLIO_ITEM !== null) {
       for (let key in this.portfolioItemData) {
-        this.portfolioItemData[key] = this.SELECTED_PORTFOLIO_ITEM[key]
+        this.portfolioItemData[key] = this.SELECTED_PORTFOLIO_ITEM[key];
       }
-      this.portfolioItemData.date = this.portfolioItemData.date.toString().split("T")[0];
+      this.portfolioItemData.date = this.portfolioItemData.date
+        .toString()
+        .split("T")[0];
 
       // установка изрбрадений из текущей едемента
       if (this.portfolioItemData.img) {

@@ -450,6 +450,11 @@ export default {
 
         // приводим дату к нудному виду
         this.cardData.dob = this.cardData.dob.toString().split("T")[0];
+
+        // проверям appearance 
+        if (this.SELECTED_CARD.id_appearance) {
+          this.cardData.id_appearance = this.SELECTED_CARD.id_appearance.id;
+        }
       }
     }
 

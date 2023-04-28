@@ -33,6 +33,8 @@ import upSubscriptionsListReferral from "@/components/subscriptions/up-subscript
 import upRedirect from "@/components/home/up-redirect.vue";
 // load 
 import upLoad from "@/components/home/up-loader.vue";
+// delete confirmation 
+import upConfirmationDelete from "@/components/home/up-confirmation-delete.vue";
 
 
 let routes = [
@@ -139,8 +141,8 @@ let routes = [
     component: upAccountDeleteConfirmation,
   },
   {
-    path: "/account-exit",
-    name: "account-exit",
+    path: "/exit",
+    name: "exit",
     component: upAccountExitConfirmation,
   },
     // subscriptions
@@ -160,9 +162,19 @@ let routes = [
     component: upRedirect,
   },
   {
+    path: '/',
+    name: "index",
+    component: upLoad,
+},
+  {
     path: "/load",
     name: "load",
     component: upLoad,
+  },
+  {
+    path: "/delete",
+    name: "delete",
+    component: upConfirmationDelete,
   }
  
 ];

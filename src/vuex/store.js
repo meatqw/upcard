@@ -47,6 +47,10 @@ export default createStore({
 
         //
         tokenStatus: false,
+
+        // delete data
+        // если что то хотим удалить в данном  массиве содериваться вся информация об объекте
+        deleteData: {}
     },
     mutations,
     actions,
