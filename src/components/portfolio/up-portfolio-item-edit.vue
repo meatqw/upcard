@@ -101,9 +101,11 @@
                 Обновить данные
               </button>
 
-              <button v-if="SELECTED_PORTFOLIO_ITEM != null"
+              <button
+                v-if="SELECTED_PORTFOLIO_ITEM != null"
                 class="btn-reset btn btn--big btn--border data-form__btn"
-                type="button" @click="deleteItem()"
+                type="button"
+                @click="deleteItem()"
               >
                 Удалить элемент
               </button>
@@ -118,6 +120,7 @@
     v-if="showMsg"
     v-on:close="closeNotification"
     :msgText="msgText"
+    :messageType="messageType"
   ></upNotificationMessage>
 </template>
 
@@ -126,7 +129,7 @@ import { mapActions, mapGetters } from "vuex";
 import { API_DOMAIN } from "/config.js";
 import upNotificationMessage from "../notification/up-notification-message.vue";
 
-export default{
+export default {
   name: "up-portfolio-item-edit",
   components: {
     upNotificationMessage,
@@ -142,9 +145,10 @@ export default{
         img: null,
         id: null,
       },
-       // данные для уведомлялки
-       msgText: "",
+      // данные для уведомлялки
+      msgText: "",
       showMsg: false,
+      messageType: "",
       img: require("../../assets/img/avatar-card.avif"),
     };
   },
@@ -153,7 +157,7 @@ export default{
       "SELECT_PORTFOLIO_ITEM",
       "UPDATE_PORTFOLIO_API",
       "POST_PORTFOLIO_API",
-      "SET_DELETE_DATA"
+      "SET_DELETE_DATA",
     ]),
 
     // загрузка изображений
@@ -188,11 +192,12 @@ export default{
         this.portfolioItemData.date.length
       ) {
         this.POST_PORTFOLIO_API(this.portfolioItemData);
-        this.msgText = 'Данные сохранены.'
+        this.msgText = "Данные сохранены.";
         this.showMsg = true;
       } else {
-        this.msgText = 'Данные не сохранены. Заполните обязательные поля*'
+        this.msgText = "Данные не сохранены. Заполните обязательные поля*";
         this.showMsg = true;
+        this.messageType = 'message--error';
       }
     },
 
@@ -204,22 +209,27 @@ export default{
         this.portfolioItemData.date.length
       ) {
         this.UPDATE_PORTFOLIO_API(this.portfolioItemData);
-        this.msgText = 'Данные обновлены.'
+        this.msgText = "Данные обновлены.";
         this.showMsg = true;
       } else {
-        this.msgText = 'Данные не обновлены. Заполните обязательные поля*'
+        this.msgText = "Данные не обновлены. Заполните обязательные поля*";
         this.showMsg = true;
+        this.messageType = 'message--error';
       }
     },
 
     deleteItem() {
-      this.SET_DELETE_DATA({'type': 'portfolio', 'info': 'элемент порфолио', 'id': this.portfolioItemData.id});
-      this.$router.push('/delete')
+      this.SET_DELETE_DATA({
+        type: "portfolio",
+        info: "элемент порфолио",
+        id: this.portfolioItemData.id,
+      });
+      this.$router.push("/delete");
     },
 
     // ЗАКРЫТЬ ОТКНО УВЕДОМЛЕНИЯ
     closeNotification(data) {
-      this.showMsg = data
+      this.showMsg = data;
     },
   },
   computed: {

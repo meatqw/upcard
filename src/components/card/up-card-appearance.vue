@@ -167,7 +167,11 @@
               </li>
             </ul>
             <div class="btns-panel">
-              <button class="btn-reset appearance__btn btn btn--big" type="button" @click="saveAppearance()">
+              <button
+                class="btn-reset appearance__btn btn btn--big"
+                type="button"
+                @click="saveAppearance()"
+              >
                 Сохранить выбранный стиль
               </button>
             </div>
@@ -177,7 +181,11 @@
     </div>
   </main>
 
-  <upNotificationMessage v-if="showMsg" v-on:close="closeNotification" :msgText="msgText"></upNotificationMessage>
+  <upNotificationMessage
+    v-if="showMsg"
+    v-on:close="closeNotification"
+    :msgText="msgText"
+  ></upNotificationMessage>
 </template>
 
 <script>
@@ -187,32 +195,35 @@ export default {
   name: "up-card-appearance",
   data() {
     return {
-      msgText: '',
+      msgText: "",
       showMsg: false,
-      appearance: ''
-    }
+      appearance: "",
+    };
   },
   computed: {
-    ...mapGetters(['SELECTED_CARD'])
+    ...mapGetters(["SELECTED_CARD"]),
   },
   methods: {
-    ...mapActions([
-      "UPDATE_CARD_API",
-    ]),
+    ...mapActions(["UPDATE_CARD_API"]),
 
     // ЗАКРЫТЬ ОТКНО УВЕДОМЛЕНИЯ
     closeNotification(data) {
-      this.showMsg = data
+      this.showMsg = data;
     },
 
     saveAppearance() {
-      this.UPDATE_CARD_API({'id': this.SELECTED_CARD.id, 'id_appearance': this.appearance});
-      this.msgText = 'Стиль обновлен'
-      this.showMsg = true;
+      this.UPDATE_CARD_API({
+        id: this.SELECTED_CARD.id,
+        id_appearance: this.appearance,
+      }).then(() => {
+        this.msgText = "Стиль обновлен";
+        this.showMsg = true;
+        this.$router.push('/card-edit')
+      });
     },
   },
   components: {
-    upNotificationMessage
+    upNotificationMessage,
   },
   mounted() {
     if (this.SELECTED_CARD.id_appearance) {
@@ -220,6 +231,6 @@ export default {
     } else {
       console.error("No style in this card");
     }
-  }
+  },
 };
 </script>

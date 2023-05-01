@@ -21,7 +21,7 @@
           ><!-- кнопка назад -->
           <button
             class="btn-reset btn header__btn header-btn"
-            onclick="history.back();"
+            @click="back"
             value="Назад"
           >
             <i class="fa-solid fa-arrow-left"></i>
@@ -50,6 +50,13 @@ export default {
   methods: {
     goToAccount() {
       this.$router.push("/account")
+    },
+    back() {
+      if (this.$route.path != '/social-list') {
+        history.back()
+      } else {
+        this.$router.push('/personal')
+      }
     }
   }
 };

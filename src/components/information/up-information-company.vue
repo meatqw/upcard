@@ -55,7 +55,7 @@
                   class="input-reset input data-form__input"
                   placeholder="The best Company"
                 />
-                <span>Название компании</span></label
+                <span>Название компании*</span></label
               >
               <label class="data-form__label label"
                 ><input
@@ -65,7 +65,7 @@
                   class="input-reset input data-form__input"
                   placeholder="Производство ОС"
                 />
-                <span>Деятельность</span></label
+                <span>Деятельность*</span></label
               >
               <label class="data-form__label label"
                 ><input
@@ -96,7 +96,7 @@
                   v-mask="'+7(###)-###-##-##'"
                   placeholder="+7(___)___-__-__"
                 />
-                <span>Телефон компании</span></label
+                <span>Телефон компании*</span></label
               >
               <label class="data-form__label label"
                 ><input
@@ -185,7 +185,12 @@
       </section>
     </div>
   </main>
-  <upNotificationMessage v-if="showMsg" v-on:close="closeNotification" :msgText="msgText"></upNotificationMessage>
+  <upNotificationMessage
+    v-if="showMsg"
+    :messageType="messageType"
+    v-on:close="closeNotification"
+    :msgText="msgText"
+  ></upNotificationMessage>
 </template>
 
 <script>
@@ -196,7 +201,7 @@ import { API_DOMAIN } from "/config.js";
 export default {
   name: "up-information-company",
   components: {
-    upNotificationMessage
+    upNotificationMessage,
   },
   data() {
     return {
@@ -204,27 +209,28 @@ export default {
 
       // информация о компании
       companyData: {
-        activity: null,
-        address: null,
-        clientage: null,
-        company_site: null,
+        activity: "",
+        address: "",
+        clientage: "",
+        company_site: "",
         // date_create: null,
         // date_update: null,
-        email: null,
-        fax: null,
-        foundation: null,
-        id: null,
+        email: "",
+        fax: "",
+        foundation: "",
+        id: "",
         // id_social: null,
-        logo_img: null,
-        name: null,
-        phone: null,
-        work_phone: null,
+        logo_img: "",
+        name: "",
+        phone: "",
+        work_phone: "",
       },
       logo_img: require("../../assets/img/avatar-card.avif"),
 
       // данные для уведомлялки
-      msgText: '',
+      msgText: "",
       showMsg: false,
+      messageType: "",
     };
   },
   methods: {
@@ -239,33 +245,56 @@ export default {
 
     // ЗАКРЫТЬ ОТКНО УВЕДОМЛЕНИЯ
     closeNotification(data) {
-      this.showMsg = data
+      this.showMsg = data;
     },
 
     // обновление ифно о компании
     updateCompany() {
+
+      if (
+        this.companyData.name != "" &&
+        this.companyData.phone != "" &&
+        this.companyData.activity != ""
+      ) {
       this.UPDATE_COMPANY_API(this.companyData);
 
-       // показываем уведомление
-      this.msgText = 'Данные обновлены'
+      // показываем уведомление
+      this.msgText = "Данные обновлены";
       this.showMsg = true;
+      } else {
+        this.msgText = 'Данные не обвновлены. Заполните обязательные поля*'
+        this.showMsg = true;
+        this.messageType = 'message--error';
+      }
     },
 
     // создание ифно о компании
     addCompany() {
       delete this.companyData.id;
-      // создание ифнормации
-      this.POST_COMPANY_API(this.companyData).then(() => {
-        // привязка ифнормации к карточке
-        this.UPDATE_CARD_API({
-          id: this.SELECTED_CARD.id,
-          id_company_info: this.COMPANY.id,
-        });
-      });
 
-       // показываем уведомление
-      this.msgText = 'Данные сохранены'
-      this.showMsg = true;
+      if (
+        this.companyData.name != "" &&
+        this.companyData.phone != "" &&
+        this.companyData.activity != ""
+      ) {
+        // создание ифнормации
+        this.POST_COMPANY_API(this.companyData).then(() => {
+          // привязка ифнормации к карточке
+          this.UPDATE_CARD_API({
+            id: this.SELECTED_CARD.id,
+            id_company_info: this.COMPANY.id,
+          });
+        });
+
+        // показываем уведомление
+        this.msgText = "Данные сохранены";
+        this.showMsg = true;
+      } else {
+        // показываем уведомление
+        this.msgText = 'Данные не сохранены. Заполните обязательные поля*'
+        this.showMsg = true;
+        this.messageType = 'message--error';
+      }
     },
 
     // загрузка изображений

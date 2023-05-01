@@ -25,8 +25,8 @@
             </li>
             <li class="list-menu__item"  @click="goToPage('/card-appearance')">
               <button class="btn-reset btn btn--med list-menu__btn">
-                Внешний вид визитки
-              </button>
+                Внешний вид визитки ({{ SELECTED_CARD.id_appearance.name }})
+              </button> 
             </li>
             <li class="list-menu__item">
               <button
@@ -43,12 +43,17 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
   name: "up-card-edit-menu",
   methods: {
     goToPage(link) {
         this.$router.push(link)
     }
-  }
+    
+  },
+  computed: {
+      ...mapGetters(['SELECTED_CARD',])
+    }
 };
 </script>

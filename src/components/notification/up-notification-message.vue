@@ -1,5 +1,5 @@
 <template>
-  <div class="message message-active">
+  <div :class="'message message-active ' + messageType ">
     <button class="btn-reset message__btn">
       <i class="fa-solid fa-xmark" v-on:click="close"></i>
     </button>
@@ -18,7 +18,12 @@ export default {
     msgText: {
       type: String,
       default: "Ok",
+      
     },
+    messageType: {
+      type: String,
+      default: '',
+    }
   },
   msgShow: false,
   methods: {

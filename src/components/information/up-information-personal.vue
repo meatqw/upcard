@@ -278,7 +278,7 @@
     </div>
   </main>
 
-  <upNotificationMessage v-if="showMsg" v-on:close="closeNotification" :msgText="msgText"></upNotificationMessage>
+  <upNotificationMessage v-if="showMsg" :messageType="messageType" v-on:close="closeNotification" :msgText="msgText"></upNotificationMessage>
   
 </template>
 
@@ -327,6 +327,7 @@ export default {
       // данные для уведомлялки
       msgText: '',
       showMsg: false,
+      messageType: '',
     };
   },
   methods: {
@@ -361,6 +362,7 @@ export default {
       } else {
         this.msgText = 'Данные не обновлены. Заполните обязательные поля*'
         this.showMsg = true;
+        this.messageType = 'message--error';
       }
     },
 
@@ -382,6 +384,7 @@ export default {
       } else {
         this.msgText = 'Данные не сохранены. Заполните обязательные поля*'
         this.showMsg = true;
+        this.messageType = 'message--error';
       }
       
     },
