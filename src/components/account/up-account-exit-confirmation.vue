@@ -10,8 +10,9 @@
                 Вы действительно хотите выйти?
               </h3>
             </li>
-            <li class="list-menu__item">
+            <li class="list-menu__item"  @click="logout()">
               <button class="btn-reset btn btn--med list-menu__btn">
+               
                 Выйти
               </button>
             </li>
