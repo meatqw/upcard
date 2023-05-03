@@ -185,12 +185,7 @@
       </section>
     </div>
   </main>
-  <upNotificationMessage
-    v-if="showMsg"
-    :messageType="messageType"
-    v-on:close="closeNotification"
-    :msgText="msgText"
-  ></upNotificationMessage>
+  <upNotificationMessage></upNotificationMessage>
 </template>
 
 <script>
@@ -226,11 +221,6 @@ export default {
         work_phone: "",
       },
       logo_img: require("../../assets/img/avatar-card.avif"),
-
-      // данные для уведомлялки
-      msgText: "",
-      showMsg: false,
-      messageType: "",
     };
   },
   methods: {
@@ -241,6 +231,7 @@ export default {
       "SELECT_CARD",
       "POST_SOCIAL_API",
       "SET_SOCIAL_PATH",
+      "SET_NOTIFICATION_DATA",
     ]),
 
     // ЗАКРЫТЬ ОТКНО УВЕДОМЛЕНИЯ
@@ -250,21 +241,24 @@ export default {
 
     // обновление ифно о компании
     updateCompany() {
-
       if (
         this.companyData.name != "" &&
         this.companyData.phone != "" &&
         this.companyData.activity != ""
       ) {
-      this.UPDATE_COMPANY_API(this.companyData);
+        this.UPDATE_COMPANY_API(this.companyData);
 
-      // показываем уведомление
-      this.msgText = "Данные обновлены";
-      this.showMsg = true;
+        this.SET_NOTIFICATION_DATA({
+          isNotification: true,
+          notificationText: "Данные обновлены",
+          notificationType: "",
+        });
       } else {
-        this.msgText = 'Данные не обвновлены. Заполните обязательные поля*'
-        this.showMsg = true;
-        this.messageType = 'message--error';
+        this.SET_NOTIFICATION_DATA({
+          isNotification: true,
+          notificationText: "Данные не обновлены. Заполните обязательные поля*",
+          notificationType: "message--error",
+        });
       }
     },
 
@@ -286,14 +280,17 @@ export default {
           });
         });
 
-        // показываем уведомление
-        this.msgText = "Данные сохранены";
-        this.showMsg = true;
+        this.SET_NOTIFICATION_DATA({
+          isNotification: true,
+          notificationText: "Данные сохранены",
+          notificationType: "",
+        });
       } else {
-        // показываем уведомление
-        this.msgText = 'Данные не сохранены. Заполните обязательные поля*'
-        this.showMsg = true;
-        this.messageType = 'message--error';
+        this.SET_NOTIFICATION_DATA({
+          isNotification: true,
+          notificationText: "Данные не сохранены. Заполните обязательные поля*",
+          notificationType: "message--error",
+        });
       }
     },
 

@@ -30,6 +30,15 @@ export default {
     },
     DELETE_DATA(state) {
         return state.deleteData;
+    },
+    NOTIFICATION_DATA(state) {
+        return state.notificationData;
+    },
+    SUBSCRIPTIONS(state) {
+        return state.subscriptions;  
+    },
+    ACCOUNT(state) {
+        return state.account;
     }
     
   };

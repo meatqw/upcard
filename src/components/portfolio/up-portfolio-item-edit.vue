@@ -116,12 +116,7 @@
     </div>
   </main>
 
-  <upNotificationMessage
-    v-if="showMsg"
-    v-on:close="closeNotification"
-    :msgText="msgText"
-    :messageType="messageType"
-  ></upNotificationMessage>
+  <upNotificationMessage></upNotificationMessage>
 </template>
 
 <script>
@@ -145,10 +140,6 @@ export default {
         img: null,
         id: null,
       },
-      // данные для уведомлялки
-      msgText: "",
-      showMsg: false,
-      messageType: "",
       img: require("../../assets/img/avatar-card.avif"),
     };
   },
@@ -158,6 +149,7 @@ export default {
       "UPDATE_PORTFOLIO_API",
       "POST_PORTFOLIO_API",
       "SET_DELETE_DATA",
+      "SET_NOTIFICATION_DATA",
     ]),
 
     // загрузка изображений
@@ -192,12 +184,17 @@ export default {
         this.portfolioItemData.date.length
       ) {
         this.POST_PORTFOLIO_API(this.portfolioItemData);
-        this.msgText = "Данные сохранены.";
-        this.showMsg = true;
+        this.SET_NOTIFICATION_DATA({
+          isNotification: true,
+          notificationText: "Данные сохранены",
+          notificationType: "",
+        });
       } else {
-        this.msgText = "Данные не сохранены. Заполните обязательные поля*";
-        this.showMsg = true;
-        this.messageType = 'message--error';
+        this.SET_NOTIFICATION_DATA({
+          isNotification: true,
+          notificationText: "Данные не сохранены. Заполните обязательные поля*",
+          notificationType: "message--error",
+        });
       }
     },
 
@@ -209,12 +206,17 @@ export default {
         this.portfolioItemData.date.length
       ) {
         this.UPDATE_PORTFOLIO_API(this.portfolioItemData);
-        this.msgText = "Данные обновлены.";
-        this.showMsg = true;
+        this.SET_NOTIFICATION_DATA({
+          isNotification: true,
+          notificationText: "Данные обновлены",
+          notificationType: "",
+        });
       } else {
-        this.msgText = "Данные не обновлены. Заполните обязательные поля*";
-        this.showMsg = true;
-        this.messageType = 'message--error';
+        this.SET_NOTIFICATION_DATA({
+          isNotification: true,
+          notificationText: "Данные не обновлены. Заполните обязательные поля*",
+          notificationType: "message--error",
+        });
       }
     },
 

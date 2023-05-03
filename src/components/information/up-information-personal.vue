@@ -161,7 +161,6 @@
                   name="Домашний телефон"
                   class="input-reset input data-form__input"
                   placeholder="XX-XX-XX"
-                  
                 />
                 <span>Домашний телефон</span></label
               >
@@ -278,8 +277,7 @@
     </div>
   </main>
 
-  <upNotificationMessage v-if="showMsg" :messageType="messageType" v-on:close="closeNotification" :msgText="msgText"></upNotificationMessage>
-  
+  <upNotificationMessage></upNotificationMessage>
 </template>
 
 
@@ -291,11 +289,10 @@ import upNotificationMessage from "../notification/up-notification-message.vue";
 import { mapActions, mapGetters } from "vuex";
 import { API_DOMAIN } from "/config.js";
 
-
 export default {
   name: "up-information-personal",
   components: {
-    upNotificationMessage
+    upNotificationMessage,
   },
   data() {
     return {
@@ -323,11 +320,6 @@ export default {
       },
       personal_img: require("../../assets/img/avatar-card.avif"),
       logo_img: require("../../assets/img/avatar-card.avif"),
-
-      // данные для уведомлялки
-      msgText: '',
-      showMsg: false,
-      messageType: '',
     };
   },
   methods: {
@@ -336,11 +328,12 @@ export default {
       "POST_CARD_API",
       "POST_SOCIAL_API",
       "SET_SOCIAL_PATH",
+      "SET_NOTIFICATION_DATA",
     ]),
 
     // ЗАКРЫТЬ ОТКНО УВЕДОМЛЕНИЯ
     closeNotification(data) {
-      this.showMsg = data
+      this.showMsg = data;
     },
 
     // обновление картчоки
@@ -353,16 +346,24 @@ export default {
         this.cardData.spec != "" &&
         this.cardData.link != ""
       ) {
+
+        if (this.cardData.dob.length) { 
+          console.log(this.cardData.dob)
+        }
+
         this.UPDATE_CARD_API(this.cardData);
 
-        // показываем уведомление
-        this.msgText = 'Данные обновлены'
-        this.showMsg = true;
-        
+        this.SET_NOTIFICATION_DATA({
+          isNotification: true,
+          notificationText: "Данные обновлены",
+          notificationType: "",
+        });
       } else {
-        this.msgText = 'Данные не обновлены. Заполните обязательные поля*'
-        this.showMsg = true;
-        this.messageType = 'message--error';
+        this.SET_NOTIFICATION_DATA({
+          isNotification: true,
+          notificationText: "Данные не обновлены. Заполните обязательные поля*",
+          notificationType: "message--error",
+        });
       }
     },
 
@@ -375,18 +376,25 @@ export default {
         this.cardData.card_name != "" &&
         this.cardData.link != ""
       ) {
+
+        if (this.cardData.dob.length) { 
+          this.cardData.dob = new Date(this.cardData.dob);
+        }
+
         this.POST_CARD_API(this.cardData);
 
-        // показываем уведомление
-        this.msgText = 'Данные сохранены'
-        this.showMsg = true;
-        
+        this.SET_NOTIFICATION_DATA({
+          isNotification: true,
+          notificationText: "Данные сохранены",
+          notificationType: "",
+        });
       } else {
-        this.msgText = 'Данные не сохранены. Заполните обязательные поля*'
-        this.showMsg = true;
-        this.messageType = 'message--error';
+        this.SET_NOTIFICATION_DATA({
+          isNotification: true,
+          notificationText: "Данные не сохранены. Заполните обязательные поля*",
+          notificationType: "message--error",
+        });
       }
-      
     },
 
     // загрузка изображений
@@ -454,7 +462,7 @@ export default {
         // приводим дату к нудному виду
         this.cardData.dob = this.cardData.dob.toString().split("T")[0];
 
-        // проверям appearance 
+        // проверям appearance
         if (this.SELECTED_CARD.id_appearance) {
           this.cardData.id_appearance = this.SELECTED_CARD.id_appearance.id;
         }

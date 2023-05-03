@@ -56,10 +56,24 @@ export default {
     POST_PORTFOLIO: (state, portfolioItem) => {
         state.selectedPortfolioItem = portfolioItem;
     },
+
+    // токен
     SET_TOKEN_STATUS_TO_STATE: (state, tokenStatus) => {
         state.tokenStatus = tokenStatus;
     },
+
+    // данные для формы удалниея
     SET_DELETE_DATA: (state, deleteData) => {
         state.deleteData = deleteData;
+    },
+    // данные для окна с оповещением
+    SET_NOTIFICATION_DATA: (state, notificationData) => {
+        state.notificationData = notificationData;
+    },
+    SET_SUBSCRIPTIONS_TO_STATE: (state, subscriptions) => {
+        state.subscriptions = subscriptions;
+    },
+    SET_ACCOUNT_TO_STATE: (state, account) => {
+        state.account = account;
     }
   };

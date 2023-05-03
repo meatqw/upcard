@@ -1,34 +1,39 @@
 <template>
-  <div :class="'message message-active ' + messageType ">
-    <button class="btn-reset message__btn">
-      <i class="fa-solid fa-xmark" v-on:click="close"></i>
-    </button>
-    <div class="message__info">
-      <p class="message__text">
-        {{ msgText }}
-      </p>
+  <div v-if="NOTIFICATION_DATA.isNotification">
+    <div
+      :class="'message message-active ' + NOTIFICATION_DATA.notificationType"
+    >
+      <div class="message__info">
+        <p class="message__text">
+          {{ NOTIFICATION_DATA.notificationText }}
+        </p>
+      </div>
     </div>
   </div>
 </template>
   
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "up-notification-message",
-  props: {
-    msgText: {
-      type: String,
-      default: "Ok",
-      
-    },
-    messageType: {
-      type: String,
-      default: '',
-    }
+  computed: {
+    ...mapGetters(["NOTIFICATION_DATA"]),
   },
-  msgShow: false,
   methods: {
+    ...mapActions(["SET_NOTIFICATION_DATA"]),
     close() {
       this.$emit("close", false);
+    },
+  },
+
+  watch: {
+    "NOTIFICATION_DATA.isNotification"() {
+
+      setTimeout(() => {
+        if (this.NOTIFICATION_DATA.isNotification) {
+          this.SET_NOTIFICATION_DATA(false)
+        }
+      }, 1500);
     },
   },
 };

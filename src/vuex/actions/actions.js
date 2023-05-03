@@ -18,6 +18,9 @@ export default {
     },
     SET_DELETE_DATA({ commit }, deleteData) {
         commit("SET_DELETE_DATA", deleteData);
-    }
+    },
+    SET_NOTIFICATION_DATA({ commit }, notificationData) {
+        commit("SET_NOTIFICATION_DATA", notificationData);
+    },
 
 };
