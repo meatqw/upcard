@@ -4,7 +4,7 @@ import { API_DOMAIN, getCookie } from '/config.js'
 export default {
     // получить все потфолио
     GET_PORTFOLIO_FROM_API({ commit }, cardID) {
-        return axios(`${API_DOMAIN}/api/v1/portfolioByCard/${cardID}/?token=${getCookie('token')}`, {
+        return axios(`${API_DOMAIN}/api/v1/portfolioByCard/${cardID}?token=${getCookie('token')}`, {
             method: "GET",
         })
             .then((response) => {
@@ -24,7 +24,7 @@ export default {
         for (let key in portfolioItem) {
             formData.append(key, portfolioItem[key]);
         } 
-        return axios(`${API_DOMAIN}/api/v1/portfolioUpdate/${portfolioItem.id}/?token=${getCookie('token')}`, {
+        return axios(`${API_DOMAIN}/api/v1/portfolioUpdate/${portfolioItem.id}?token=${getCookie('token')}`, {
             method: "PATCH",
             data: formData,
             headers: {
@@ -48,7 +48,7 @@ export default {
             formData.append(key, portfolioItem[key]);
         }
 
-        return axios(`${API_DOMAIN}/api/v1/portfolio/?token=${getCookie('token')}`, {
+        return axios(`${API_DOMAIN}/api/v1/portfolio?token=${getCookie('token')}`, {
             method: "POST",
             data: formData,
             headers: {
@@ -65,7 +65,7 @@ export default {
             });
     },
     DELETE_PORTFOLIO_API({ commit }, cardID) {
-        return axios(`${API_DOMAIN}/api/v1/portfolioDelete/${cardID}/?token=${getCookie('token')}`, {
+        return axios(`${API_DOMAIN}/api/v1/portfolioDelete/${cardID}?token=${getCookie('token')}`, {
             method: "DELETE",
         })
             .then((response) => {

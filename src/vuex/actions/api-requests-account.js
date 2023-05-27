@@ -5,7 +5,7 @@ import { API_DOMAIN, getCookie } from '/config.js'
 export default {
     // получить пользщователя
     GET_ACCOUNT_FROM_API({ commit }) {
-        return axios(`${API_DOMAIN}/api/v1/account/?token=${getCookie('token')}`, {
+        return axios(`${API_DOMAIN}/api/v1/account?token=${getCookie('token')}`, {
             method: "GET",
         })
             .then((account) => {
@@ -25,7 +25,7 @@ export default {
         for (let key in data) {
             formData.append(key, data[key]);
         } 
-        return axios(`${API_DOMAIN}/api/v1/account/?token=${getCookie('token')}`, {
+        return axios(`${API_DOMAIN}/api/v1/account?token=${getCookie('token')}`, {
             method: "PATCH",
             data: formData,
             headers: {

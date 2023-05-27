@@ -377,9 +377,9 @@ export default {
         this.cardData.link != ""
       ) {
 
-        if (this.cardData.dob.length) { 
-          this.cardData.dob = new Date(this.cardData.dob);
-        }
+        // if (this.cardData.dob.length) {
+        //   this.cardData.dob = this.cardData.dob;
+        // }
 
         this.POST_CARD_API(this.cardData);
 
