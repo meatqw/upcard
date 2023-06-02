@@ -16,34 +16,35 @@
 
                   <div class="add-pictures__img">
                     <picture
-                      ><source :srcset="personal_img" type="image/avif" />
-                      <source :srcset="personal_img" type="image/webp" />
+                    >
+                      <source :srcset="personal_img" type="image/avif"/>
+                      <source :srcset="personal_img" type="image/webp"/>
                       <img
-                        loading="lazy"
-                        :src="personal_img"
-                        class="image"
-                        width="230"
-                        height="230"
-                        alt="avatar"
-                    /></picture>
+                          loading="lazy"
+                          :src="personal_img"
+                          class="image"
+                          width="230"
+                          height="230"
+                          alt="avatar"
+                      /></picture>
                   </div>
                   <!-- добавить фото -->
                   <div class="input__wrapper">
                     <input
-                      name="image"
-                      type="file"
-                      ref="personal_img"
-                      accept="image/*"
-                      id="input__file"
-                      class="input input__file"
-                      @change="uploadImage('personal_img')"
+                        name="image"
+                        type="file"
+                        ref="personal_img"
+                        accept="image/*"
+                        id="input__file"
+                        class="input input__file"
+                        @change="uploadImage('personal_img')"
                     />
                     <label for="input__file" class="input__file-button btn"
-                      ><span class="input__file-icon-wrapper"
-                        ><i class="fa-solid fa-file-export"></i> </span
-                      ><span class="input__file-button-text"
-                        >Загрузить личное фото</span
-                      ></label
+                    ><span class="input__file-icon-wrapper"
+                    ><i class="fa-solid fa-file-export"></i> </span
+                    ><span class="input__file-button-text"
+                    >Загрузить личное фото</span
+                    ></label
                     >
                   </div>
                 </li>
@@ -53,95 +54,96 @@
 
                   <div class="add-pictures__img">
                     <picture
-                      ><source :srcset="logo_img" type="image/avif" />
-                      <source :srcset="logo_img" type="image/webp" />
+                    >
+                      <source :srcset="logo_img" type="image/avif"/>
+                      <source :srcset="logo_img" type="image/webp"/>
                       <img
-                        loading="lazy"
-                        :src="logo_img"
-                        class="image"
-                        width="230"
-                        height="230"
-                        alt="avatar"
-                    /></picture>
+                          loading="lazy"
+                          :src="logo_img"
+                          class="image"
+                          width="230"
+                          height="230"
+                          alt="avatar"
+                      /></picture>
                   </div>
 
                   <!-- добавить фото -->
                   <div class="input__wrapper">
                     <input
-                      name="image"
-                      type="file"
-                      ref="logo_img"
-                      accept="image/*"
-                      id="input__file--second"
-                      class="input input__file"
-                      @change="uploadImage('logo_img')"
+                        name="image"
+                        type="file"
+                        ref="logo_img"
+                        accept="image/*"
+                        id="input__file--second"
+                        class="input input__file"
+                        @change="uploadImage('logo_img')"
                     />
                     <label
-                      for="input__file--second"
-                      class="input__file-button btn"
-                      ><span class="input__file-icon-wrapper"
-                        ><i class="fa-solid fa-file-export"></i> </span
-                      ><span class="input__file-button-text"
-                        >Загрузить логотип</span
-                      ></label
+                        for="input__file--second"
+                        class="input__file-button btn"
+                    ><span class="input__file-icon-wrapper"
+                    ><i class="fa-solid fa-file-export"></i> </span
+                    ><span class="input__file-button-text"
+                    >Загрузить логотип</span
+                    ></label
                     >
                   </div>
                 </li>
               </ul>
               <label class="data-form__label label"
-                ><input
+              ><input
                   v-model="cardData.card_name"
                   type="text"
                   name="Название"
                   class="input-reset input data-form__input input-name"
                   placeholder="Визитка 1"
                   required
-                />
+              />
                 <span>Название визитки*</span></label
               >
               <label class="data-form__label label"
-                ><input
+              ><input
                   v-model="cardData.surname"
                   type="text"
                   name="Фамилия"
                   class="input-reset input data-form__input"
                   placeholder="Иванов"
-                />
+              />
                 <span>Фамилия</span></label
               >
               <label class="data-form__label label"
-                ><input
+              ><input
                   v-model="cardData.name"
                   type="text"
                   name="Имя"
                   class="input-reset input data-form__input input-first-name"
                   placeholder="Иван"
                   required
-                />
+              />
                 <span>Имя*</span></label
               >
               <label class="data-form__label label"
-                ><input
+              ><input
                   v-model="cardData.patronymic"
                   type="text"
                   name="Отчество"
                   class="input-reset input data-form__input"
                   placeholder="Иванович"
-                />
+              />
                 <span>Отчество</span></label
               >
               <label class="data-form__label label"
-                ><input
+              ><input
                   v-model="cardData.spec"
                   type="text"
                   name="Специализация"
                   class="input-reset input data-form__input"
                   placeholder="Программист"
-                />
+              />
                 <span>Специализация*</span></label
               >
               <label class="data-form__label label"
-                ><input
+              ><input
                   v-model="cardData.phone"
                   type="tel"
                   name="Телефон"
@@ -150,85 +152,86 @@
                   placeholder="+7(___)___-__-__"
                   inputmode="text"
                   required
-                />
+              />
                 <span>Мобильный телефон*</span></label
               >
               <label class="data-form__label label"
-                ><input
+              ><input
                   v-model="cardData.home_phone"
                   type="tel"
                   v-mask="'##-##-##'"
                   name="Домашний телефон"
                   class="input-reset input data-form__input"
                   placeholder="XX-XX-XX"
-                />
+              />
                 <span>Домашний телефон</span></label
               >
               <label class="data-form__label label"
-                ><input
+              ><input
                   v-model="cardData.personal_site"
                   type="text"
                   name="Сайт"
                   class="input-reset input data-form__input"
                   placeholder="mysite.com"
-                />
+              />
                 <span>Личный сайт</span></label
               >
               <label class="data-form__label label"
-                ><input
+              ><input
                   v-model="cardData.email"
                   type="email"
                   name="email"
                   class="input-reset input data-form__input input-email"
                   placeholder="ivanov-ivan@mail.com"
                   required
-                />
+              />
                 <span>Email*</span></label
               >
               <label class="data-form__label label"
-                ><input
+              ><input
                   v-model="cardData.dob"
-                  type="date"
+                  type="text"
+                  v-mask="'##.##.####'"
                   name="дата рождения"
                   class="input-reset input data-form__input"
                   placeholder="31.01.2001"
-                />
+              />
                 <span>Дата рождения</span></label
               >
               <label class="data-form__label label"
-                ><input
+              ><input
                   v-model="cardData.address"
                   type="text"
                   name="адрес"
                   class="input-reset input data-form__input"
                   placeholder="г. Барнаул, ул. Ленина, дом 85"
-                />
+              />
                 <span>Адрес проживания</span></label
               >
               <label class="data-form__label label"
-                ><input
+              ><input
                   v-model="cardData.link"
                   type="text"
                   name="Ссылка"
                   class="input-reset input data-form__input"
                   placeholder="upcard"
                   required
-                />
+              />
                 <span
-                  >Ссылка* https://card.upcard.online/{{ cardData.link }}</span
+                >Ссылка* https://card.upcard.online/{{ cardData.link }}</span
                 ></label
               >
               <div class="data-form__btns">
                 <a
-                  @click="goToPage('/social-list')"
-                  class="btn-reset btn btn--fit data-form__btn"
-                  >Выбрать социальные сети</a
+                    @click="goToPage('/social-list')"
+                    class="btn-reset btn btn--fit data-form__btn"
+                >Выбрать социальные сети</a
                 >
                 <a
-                  v-if="Object.keys(this.SELECTED_CARD).length !== 0"
-                  @click="goToPage('/company')"
-                  class="btn-reset btn btn--fit data-form__btn"
-                  >Информация о компании</a
+                    v-if="Object.keys(this.SELECTED_CARD).length !== 0"
+                    @click="goToPage('/company')"
+                    class="btn-reset btn btn--fit data-form__btn"
+                >Информация о компании</a
                 >
                 <!-- <a
                   v-if="Object.keys(this.SELECTED_CARD).length !== 0"
@@ -240,13 +243,13 @@
             </div>
 
             <div
-              class="btns-panel data-form__btns-panel"
-              v-if="Object.keys(SELECTED_CARD).length !== 0"
+                class="btns-panel data-form__btns-panel"
+                v-if="Object.keys(SELECTED_CARD).length !== 0"
             >
               <button
-                class="btn-reset btn btn--big data-form__btn"
-                type="button"
-                @click="updateCard()"
+                  class="btn-reset btn btn--big data-form__btn"
+                  type="button"
+                  @click="updateCard()"
               >
                 Обновить визитку
               </button>
@@ -259,9 +262,9 @@
 
             <div class="btns-panel data-form__btns-panel" v-else>
               <button
-                class="btn-reset btn btn--big data-form__btn"
-                type="button"
-                @click="addCard()"
+                  class="btn-reset btn btn--big data-form__btn"
+                  type="button"
+                  @click="addCard()"
               >
                 Создать визитку
               </button>
@@ -281,13 +284,10 @@
 </template>
 
 
-
-
-
 <script>
 import upNotificationMessage from "../notification/up-notification-message.vue";
-import { mapActions, mapGetters } from "vuex";
-import { API_DOMAIN } from "/config.js";
+import {mapActions, mapGetters} from "vuex";
+import {API_DOMAIN} from "/config.js";
 
 export default {
   name: "up-information-personal",
@@ -310,7 +310,7 @@ export default {
         home_phone: "",
         personal_site: "",
         email: "",
-        dob: null,
+        dob: "",
         address: "",
         personal_img: "",
         logo_img: "",
@@ -339,15 +339,15 @@ export default {
     // обновление картчоки
     updateCard() {
       if (
-        this.cardData.email != "" &&
-        this.cardData.name != "" &&
-        this.cardData.phone != "" &&
-        this.cardData.card_name != "" &&
-        this.cardData.spec != "" &&
-        this.cardData.link != ""
+          this.cardData.email !== "" &&
+          this.cardData.name !== "" &&
+          this.cardData.phone !== "" &&
+          this.cardData.card_name !== "" &&
+          this.cardData.spec !== "" &&
+          this.cardData.link !== ""
       ) {
 
-        if (this.cardData.dob.length) { 
+        if (this.cardData.dob.length) {
           console.log(this.cardData.dob)
         }
 
@@ -370,16 +370,12 @@ export default {
     // создание карточки
     addCard() {
       if (
-        this.cardData.email != "" &&
-        this.cardData.name != "" &&
-        this.cardData.phone != "" &&
-        this.cardData.card_name != "" &&
-        this.cardData.link != ""
+          this.cardData.email !== "" &&
+          this.cardData.name !== "" &&
+          this.cardData.phone !== "" &&
+          this.cardData.card_name !== "" &&
+          this.cardData.link !== ""
       ) {
-
-        // if (this.cardData.dob.length) {
-        //   this.cardData.dob = this.cardData.dob;
-        // }
 
         this.POST_CARD_API(this.cardData);
 
@@ -407,11 +403,11 @@ export default {
       const reader = new FileReader();
 
       reader.addEventListener(
-        "load",
-        () => {
-          this[ref] = reader.result;
-        },
-        false
+          "load",
+          () => {
+            this[ref] = reader.result;
+          },
+          false
       );
 
       if (file) {
@@ -460,7 +456,7 @@ export default {
         }
 
         // приводим дату к нудному виду
-        this.cardData.dob = this.cardData.dob.toString().split("T")[0];
+        // this.cardData.dob = this.cardData.dob.toString().split("T")[0];
 
         // проверям appearance
         if (this.SELECTED_CARD.id_appearance) {
