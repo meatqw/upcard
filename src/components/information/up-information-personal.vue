@@ -310,7 +310,7 @@ export default {
         home_phone: "",
         personal_site: "",
         email: "",
-        dob: "",
+        dob: null,
         address: "",
         personal_img: "",
         logo_img: "",
