@@ -74,12 +74,13 @@
               <i class="fa-solid fa-qrcode"></i>
               <span>QR-код визитки</span></button
             ><!-- data-url - ссылка на визитку -->
-            <button
+            <button style="background-color: gray"
               class="btn-reset btn btn--main"
               id="share"
               data-title="Тайтл визики"
               data-text="Описание визитки"
               data-url="#"
+              disabled="disabled"
             >
               <i class="fa-regular fa-share-from-square"></i>
               <span>Поделиться визиткой</span>

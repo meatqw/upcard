@@ -18,7 +18,7 @@
               >
             </li>
             <li class="list-menu__item">
-              <a class="list-menu__link" 
+              <a class="list-menu__link" style="color: gray"
                 ><i class="fa-regular fa-calendar-days"></i>
                 <span>Календарь приема</span></a
               >

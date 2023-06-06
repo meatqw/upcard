@@ -5,6 +5,9 @@
       <h1 class="header__title">{{ title }}</h1>
       <!-- боковое меню -->
       <div class="header__right" v-if="$route.path != '/load'">
+        <div class="header__balance header-balance">
+          <span class="header-balance__name">{{ this.ACCOUNT.email}}</span>
+        </div>
         <!-- значение баланса -->
         <div class="header__balance header-balance">
           <span class="header-balance__name">Ваш баланс: </span>
@@ -34,6 +37,8 @@
 </template>
 
 <script>
+import {mapActions, mapGetters} from "vuex";
+
 export default {
   name: "up-header",
   data() {
@@ -47,7 +52,11 @@ export default {
       default: 'Заголовок',
     },
   },
+  computed: {
+    ...mapGetters(["ACCOUNT"]),
+  },
   methods: {
+    ...mapActions(["SELECT_CARD", "GET_ACCOUNT_FROM_API"]),
     goToAccount() {
       this.$router.push("/account")
     },
@@ -58,6 +67,9 @@ export default {
         this.$router.push('/personal')
       }
     }
+  },
+  mounted() {
+    this.GET_ACCOUNT_FROM_API().then(() => {});
   }
 };
 </script>

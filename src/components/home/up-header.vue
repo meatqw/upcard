@@ -86,6 +86,9 @@
         </ul>
       </nav>
       <div class="header__right" v-if="!showHeadInfo">
+        <div class="header__balance header-balance">
+          <span class="header-balance__name">{{this.ACCOUNT.email}}</span>
+        </div>
         <!-- значение баланса -->
         <div class="header__balance header-balance">
           <span class="header-balance__name">Ваш баланс:</span>
@@ -105,7 +108,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   name: "up-header",
@@ -116,7 +119,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["SELECT_CARD"]),
+    ...mapActions(["SELECT_CARD", "GET_ACCOUNT_FROM_API"]),
 
     // открыть/закрыть меню
     changeClassMenu() {
@@ -142,6 +145,7 @@ export default {
     },
   },
   computed: {
+      ...mapGetters(["ACCOUNT"]),
     // не отображаем иформации в header если это страницы авторизации
     showHeadInfo() {
       return (
@@ -160,5 +164,8 @@ export default {
       return this.menuBtnClassName;
     },
   },
+  mounted() {
+    this.GET_ACCOUNT_FROM_API().then(() => {});
+  }
 };
 </script>

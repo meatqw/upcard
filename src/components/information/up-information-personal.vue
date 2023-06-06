@@ -221,7 +221,7 @@
                 >Ссылка* https://card.upcard.online/{{ cardData.link }}</span
                 ></label
               >
-              <div class="data-form__btns">
+              <div class="data-form__btns" v-if="Object.keys(SELECTED_CARD).length !== 0">
                 <a
                     @click="goToPage('/social-list')"
                     class="btn-reset btn btn--fit data-form__btn"
@@ -233,12 +233,6 @@
                     class="btn-reset btn btn--fit data-form__btn"
                 >Информация о компании</a
                 >
-                <!-- <a
-                  v-if="Object.keys(this.SELECTED_CARD).length !== 0"
-                  @click="goToPage('/card-appearance')"
-                  class="btn-reset btn btn--fit data-form__btn"
-                  >Внешний вид визитки</a
-                > -->
               </div>
             </div>
 
