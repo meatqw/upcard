@@ -144,13 +144,13 @@
                 <div class="radio-btn">
                   <!-- radio-box -->
                   <input
-                    id="radio-6"
+                    id="radio-8"
                     type="radio"
                     name="appearance"
-                    value="6"
+                    value="8"
                     disabled="disabled"
                   />
-                  <label class="radio-btn__content" for="radio-6"
+                  <label class="radio-btn__content" for="radio-8"
                     ><div class="appearance__colors">
                       <div
                         class="appearance__color appearance__color--yellow"
