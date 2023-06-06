@@ -93,7 +93,7 @@
 
             <!-- href = ссылка на визитку-->
             <a
-              :href="'http://card.upcard.online/' + SELECTED_CARD.link"
+              :href="'https://card.upcard.online/' + SELECTED_CARD.link"
               class="btn-reset btn btn--main"
               target="_blank"
               ><i class="fa-regular fa-eye"></i>
