@@ -227,12 +227,12 @@
                     class="btn-reset btn btn--fit data-form__btn"
                 >Выбрать социальные сети</a
                 >
-                <a
-                    v-if="Object.keys(this.SELECTED_CARD).length !== 0"
-                    @click="goToPage('/company')"
-                    class="btn-reset btn btn--fit data-form__btn"
-                >Информация о компании</a
-                >
+                <!--                <a-->
+                <!--                    v-if="Object.keys(this.SELECTED_CARD).length !== 0"-->
+                <!--                    @click="goToPage('/company')"-->
+                <!--                    class="btn-reset btn btn&#45;&#45;fit data-form__btn"-->
+                <!--                >Информация о компании</a-->
+                <!--                >-->
               </div>
             </div>
 
@@ -341,11 +341,17 @@ export default {
           this.cardData.link !== ""
       ) {
 
-        if (this.cardData.dob.length) {
-          console.log(this.cardData.dob)
-        }
-
-        this.UPDATE_CARD_API(this.cardData);
+        this.UPDATE_CARD_API(this.cardData).then(response => {
+          if ('error' in response) {
+            if (response['error'] === 'link') {
+              this.SET_NOTIFICATION_DATA({
+                isNotification: true,
+                notificationText: "Данные не обновлены. Ссылка должна быть уникальной",
+                notificationType: "message--error",
+              });
+            }
+          }
+        });
 
         this.SET_NOTIFICATION_DATA({
           isNotification: true,
@@ -371,7 +377,17 @@ export default {
           this.cardData.link !== ""
       ) {
 
-        this.POST_CARD_API(this.cardData);
+        this.POST_CARD_API(this.cardData).then(response => {
+          if ('error' in response) {
+            if (response['error'] === 'link') {
+              this.SET_NOTIFICATION_DATA({
+                isNotification: true,
+                notificationText: "Данные не сохранены. Ссылка должна быть уникальной",
+                notificationType: "message--error",
+              });
+            }
+          }
+        });
 
         this.SET_NOTIFICATION_DATA({
           isNotification: true,

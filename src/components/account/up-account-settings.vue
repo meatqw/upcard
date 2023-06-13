@@ -21,11 +21,11 @@
               </div>
               <!-- --- -->
             </li>
-            <li class="list-menu__item">
-              <button class="btn-reset btn btn--med list-menu__btn">
-                Пополнить баланс
-              </button>
-            </li>
+<!--            <li class="list-menu__item">-->
+<!--              <button class="btn-reset btn btn&#45;&#45;med list-menu__btn">-->
+<!--                Пополнить баланс-->
+<!--              </button>-->
+<!--            </li>-->
             <li class="list-menu__item">
               <button
                 class="btn-reset btn btn--med btn--border list-menu__btn"
