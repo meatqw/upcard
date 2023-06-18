@@ -265,6 +265,7 @@ export default {
       this.UPDATE_CARD_API({
         id: this.SELECTED_CARD.id,
         id_appearance: this.appearance,
+        link: this.SELECTED_CARD.link
       }).then(() => {
         this.msgText = "Стиль обновлен";
         this.showMsg = true;
