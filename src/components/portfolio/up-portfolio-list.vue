@@ -4,7 +4,13 @@
       <section class="list-of-portfolio">
         <div class="list-of-portfolio__container">
           <h2 class="list-of-portfolio__title title-h2">
-            Список элементов портфолио
+            Список
+            <input
+              type="text"
+              class="input-reset input list-of-portfolio__input"
+              placeholder="Портфолио"
+              v-model="inputValue"
+            />
           </h2>
           <!-- список карт -->
           <ul class="list-reset list-of-portfolio__list">
@@ -32,19 +38,24 @@
                       alt="avatar"
                   /></picture>
 
-                    <picture v-else>
-                      <source :srcset="require('../../assets/img/avatar-card.png')" type="image/avif" />
-                      <source :srcset="require('../../assets/img/avatar-card.png')" type="image/webp" />
-                      <img
-                        loading="lazy"
-                        :src="require('../../assets/img/avatar-card.png')"
-                        class="image"
-                        width="65"
-                        height="65"
-                        alt="avatar"
-                      />
-                    </picture>
-                    
+                  <picture v-else>
+                    <source
+                      :srcset="require('../../assets/img/avatar-card.png')"
+                      type="image/avif"
+                    />
+                    <source
+                      :srcset="require('../../assets/img/avatar-card.png')"
+                      type="image/webp"
+                    />
+                    <img
+                      loading="lazy"
+                      :src="require('../../assets/img/avatar-card.png')"
+                      class="image"
+                      width="65"
+                      height="65"
+                      alt="avatar"
+                    />
+                  </picture>
                 </div>
                 <div class="card-item__info">
                   <!-- имя -->
@@ -84,6 +95,7 @@ export default {
   data() {
     return {
       API_DOMAIN: API_DOMAIN,
+      inputValue: "",
     };
   },
   methods: {
@@ -105,3 +117,45 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.list-of-portfolio__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.list-of-portfolio__input {
+  border-left: none;
+  /* border: 1px solid #fff; */
+  height: 40px;
+  max-width: 200px;
+  padding: 10px 5px;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 140%;
+  letter-spacing: 0.02em;
+}
+
+.list-of-portfolio__input::placeholder {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 140%;
+  letter-spacing: 0.02em;
+}
+
+.list-of-portfolio__input:focus {
+  border-left: none;
+}
+
+@media (max-width: 576px) {
+  .list-of-portfolio__input {
+    height: 35px;
+    font-size: 18px;
+  }
+
+  .list-of-portfolio__input::placeholder {
+    font-size: 18px;
+  }
+}
+</style>
