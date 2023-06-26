@@ -50,24 +50,24 @@
               <label class="data-form__label label"
                 ><input
                   type="text"
-                  name="Название"
+                  name="Заголовок"
                   class="input-reset input data-form__input input-name"
                   placeholder="Моя лучшая работа"
                   v-model="portfolioItemData.name"
                   required
                 />
-                <span>Название*</span></label
+                <span>Заголовок*</span></label
               >
               <label class="data-form__label label"
                 ><input
-                  type="date"
-                  name="дата"
+                  type="text"
+                  name="Ползаголовок"
                   class="input-reset input data-form__input input-date"
-                  placeholder="31.01.2001"
+                  placeholder="Стомость 1000"
                   required
                   v-model="portfolioItemData.date"
                 />
-                <span>Дата*</span></label
+                <span>Ползаголовок*</span></label
               >
               <label class="data-form__label label"
                 ><input
