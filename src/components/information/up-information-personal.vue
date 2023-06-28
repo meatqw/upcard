@@ -435,6 +435,7 @@ export default {
             this.UPDATE_CARD_API({
               id_social: this.SOCIAL_DATA.id,
               id: this.SELECTED_CARD.id,
+              link: this.SELECTED_CARD.link,
             });
           });
         }
@@ -465,22 +466,15 @@ export default {
           this.personal_img = this.API_DOMAIN + this.cardData.personal_img;
         }
 
-        // приводим дату к нудному виду
-        // this.cardData.dob = this.cardData.dob.toString().split("T")[0];
-
         // проверям appearance
         if (this.SELECTED_CARD.id_appearance) {
           this.cardData.id_appearance = this.SELECTED_CARD.id_appearance.id;
         }
       }
     }
-
     // удаляем елемент из cardData чтобы его не передавать при обновление или загрузски если он пустой
     delete this.cardData.logo_img;
     delete this.cardData.personal_img;
-
-    // const token = this.$route.query.token;
-    // делаем запрос на получение всех карточек пользователя
   },
 };
 </script>

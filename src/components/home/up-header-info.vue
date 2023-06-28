@@ -6,7 +6,7 @@
       <!-- боковое меню -->
       <div class="header__right" v-if="$route.path != '/load'">
         <div class="header__balance header-balance">
-          <span class="header-balance__name">{{ this.ACCOUNT.email}}</span>
+          <span class="header-balance__name">{{ this.ACCOUNT.email }}</span>
         </div>
         <!-- значение баланса -->
         <div class="header__balance header-balance">
@@ -16,16 +16,16 @@
         <div class="header__btns">
           <!-- кнопка главная -->
           <button
-            class="btn-reset btn header__btn header-btn header-btn--main"
-            @click="goToAccount()"
-            value="Главная"
+              class="btn-reset btn header__btn header-btn header-btn--main"
+              @click="goToAccount()"
+              value="Главная"
           >
             <i class="fa-solid fa-house"></i></button
           ><!-- кнопка назад -->
           <button
-            class="btn-reset btn header__btn header-btn"
-            @click="back"
-            value="Назад"
+              class="btn-reset btn header__btn header-btn"
+              @click="back"
+              value="Назад"
           >
             <i class="fa-solid fa-arrow-left"></i>
             <span class="header-btn__text">Назад</span>
@@ -42,8 +42,7 @@ import {mapActions, mapGetters} from "vuex";
 export default {
   name: "up-header",
   data() {
-    return {
-    };
+    return {};
   },
   props: {
     // поучаем щаголвоок старницы
@@ -61,15 +60,16 @@ export default {
       this.$router.push("/account")
     },
     back() {
-      if (this.$route.path != '/social-list') {
-        history.back()
-      } else {
+      if (this.$route.path == '/social-list') {
         this.$router.push('/personal')
+      } else {
+        history.back()
       }
     }
   },
   mounted() {
-    this.GET_ACCOUNT_FROM_API().then(() => {});
+    this.GET_ACCOUNT_FROM_API().then(() => {
+    });
   }
 };
 </script>

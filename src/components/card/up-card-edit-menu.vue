@@ -14,7 +14,7 @@
             <li class="list-menu__item">
               <a @click="goToPage('/portfolio-list')" style="cursor: pointer;" class="list-menu__link"
                 ><i class="fa-solid fa-briefcase"></i>
-                <span>Портфолио пользователя</span></a
+                <span>Подкарта пользователя</span></a
               >
             </li>
             <li class="list-menu__item">

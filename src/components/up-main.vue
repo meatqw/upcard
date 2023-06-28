@@ -67,10 +67,10 @@ export default {
           title = "Редактировать";
           break;
         case "portfolio-list":
-          title = "Портфолио";
+          title = "Подкарта";
           break;
         case "portfolio-item":
-          title = "Элемент портфолио";
+          title = "Элемент подкарты";
           break;
         case "card-qr":
           title = "QR-код";

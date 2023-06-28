@@ -10,7 +10,9 @@
               class="input-reset input list-of-portfolio__input"
               placeholder="Портфолио"
               v-model="inputValue"
+              @input="changeSubCard()"
             />
+            <span @click="updateSubCardName()" v-if="isSubCardChanged" class="header-balance__name" style="text-decoration: underline; cursor: pointer;">Сохранить</span>
           </h2>
           <!-- список карт -->
           <ul class="list-reset list-of-portfolio__list">
@@ -83,9 +85,17 @@
       </section>
     </div>
   </main>
+
+  <upNotificationMessage
+      v-if="showMsg"
+      v-on:close="closeNotification"
+      :msgText="msgText"
+  ></upNotificationMessage>
+
 </template>
 
 <script>
+import upNotificationMessage from "../notification/up-notification-message.vue";
 import { mapActions, mapGetters } from "vuex";
 import { API_DOMAIN } from "/config.js";
 
@@ -96,24 +106,50 @@ export default {
     return {
       API_DOMAIN: API_DOMAIN,
       inputValue: "",
+      isSubCardChanged: false,
+      msgText: "",
+      showMsg: false,
+      appearance: "",
     };
   },
+  components: {
+    upNotificationMessage
+  },
   methods: {
-    ...mapActions(["GET_PORTFOLIO_FROM_API", "SELECT_PORTFOLIO_ITEM"]),
+    ...mapActions(["GET_PORTFOLIO_FROM_API", "SELECT_PORTFOLIO_ITEM", "UPDATE_CARD_API"]),
+
+    // ЗАКРЫТЬ ОТКНО УВЕДОМЛЕНИЯ
+    closeNotification(data) {
+      this.showMsg = data;
+    },
 
     selectItemAndRedirect(portfolioItem) {
       this.SELECT_PORTFOLIO_ITEM(portfolioItem);
       this.$router.push("/portfolio-item");
+    },
+
+    changeSubCard() {
+      this.isSubCardChanged = !!this.inputValue.length;
+    },
+
+    updateSubCardName() {
+      this.UPDATE_CARD_API({
+        id: this.SELECTED_CARD.id,
+        subcard: this.inputValue,
+        link: this.SELECTED_CARD.link
+      }).then(() => {
+        this.isSubCardChanged = false;
+        this.msgText = "Изменения сохранен";
+        this.showMsg = true;
+      });
     },
   },
   computed: {
     ...mapGetters(["SELECTED_CARD", "PORTFOLIO"]),
   },
   mounted() {
-    // const token = this.$route.query.token;
-    // console.log(token)
-
     this.GET_PORTFOLIO_FROM_API(this.SELECTED_CARD.id);
+    this.inputValue = this.SELECTED_CARD.subcard;
   },
 };
 </script>

@@ -116,22 +116,30 @@
       </section>
     </div>
   </main>
+  <up-card-popup
+      :is-open="isPopupOpen"
+      :currentUrl="'https://card.upcard.online/' + SELECTED_CARD.link"
+      @close="isPopupOpen = false"
+  />
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
 import { API_DOMAIN } from "/config.js";
 import upAccountCards from "@/components/account/up-account-cards.vue";
+import UpCardPopup from "@/components/card/up-card-popup.vue";
 
 export default {
   name: "up-account-personal",
   data() {
     return {
+      isPopupOpen: false,
       API_DOMAIN: API_DOMAIN,
       personal_img: require("../../assets/img/avatar-card.avif"),
     };
   },
   components: {
+    UpCardPopup,
     upAccountCards,
   },
   methods: {
@@ -145,7 +153,7 @@ export default {
       this.$router.push("/card-qr");
     },
     share() {
-      //
+      this.isPopupOpen = true;
     }
   },
   computed: {
