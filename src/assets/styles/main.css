@@ -2598,6 +2598,12 @@ a {
 .appearance__color--yellow {
   background-color: var(--flup-accent-color);
 }
+.appearance__color--dark-blue {
+  background-color: #000a41;
+}
+.apperarance__color--light-yellow {
+  background-color: #ffae00;
+}
 .appearance__color--light-gray {
   background-color: var(--flup-gray-color);
 }

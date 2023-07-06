@@ -156,7 +156,7 @@
                         class="appearance__color appearance__color--yellow"
                       ></div>
                       <div
-                        class="appearance__color appearance__color--light-gray"
+                        class="appearance__color appearance__color--light"
                       ></div>
                     </div>
                     <h3 class="appearance__subtitle text-little">
@@ -169,21 +169,21 @@
                 <div class="radio-btn">
                   <!-- radio-box -->
                   <input
-                      id="radio-6"
-                      type="radio"
-                      name="appearance"
-                      value="6"
-                      v-model="appearance"
+                    id="radio-6"
+                    type="radio"
+                    name="appearance"
+                    value="6"
+                    v-model="appearance"
                   />
                   <label class="radio-btn__content" for="radio-6"
-                  ><div class="appearance__colors">
-                    <div
-                        class="appearance__color appearance__color--yellow"
-                    ></div>
-                    <div
+                    ><div class="appearance__colors">
+                      <div
+                        class="appearance__color appearance__color--dark-blue"
+                      ></div>
+                      <div
                         class="appearance__color appearance__color--light-gray"
-                    ></div>
-                  </div>
+                      ></div>
+                    </div>
                     <h3 class="appearance__subtitle text-little">
                       Темной синий
                     </h3></label
@@ -194,21 +194,21 @@
                 <div class="radio-btn">
                   <!-- radio-box -->
                   <input
-                      id="radio-7"
-                      type="radio"
-                      name="appearance"
-                      value="7"
-                      v-model="appearance"
+                    id="radio-7"
+                    type="radio"
+                    name="appearance"
+                    value="7"
+                    v-model="appearance"
                   />
                   <label class="radio-btn__content" for="radio-7"
-                  ><div class="appearance__colors">
-                    <div
-                        class="appearance__color appearance__color--yellow"
-                    ></div>
-                    <div
-                        class="appearance__color appearance__color--light-gray"
-                    ></div>
-                  </div>
+                    ><div class="appearance__colors">
+                      <div
+                        class="appearance__color appearance__color--light-yellow"
+                      ></div>
+                      <div
+                        class="appearance__color appearance__color--light"
+                      ></div>
+                    </div>
                     <h3 class="appearance__subtitle text-little">
                       Желто синий
                     </h3></label
@@ -265,12 +265,11 @@ export default {
       this.UPDATE_CARD_API({
         id: this.SELECTED_CARD.id,
         id_appearance: this.appearance,
-        link: this.SELECTED_CARD.link
-
+        link: this.SELECTED_CARD.link,
       }).then(() => {
         this.msgText = "Стиль обновлен";
         this.showMsg = true;
-        this.$router.push('/card-edit')
+        this.$router.push("/card-edit");
       });
     },
   },
