@@ -7,39 +7,39 @@
 
           <div class="qr__img">
             <QRCodeVue3
-              :width="400"
-              :height="400"
-              :data="link"
-              :value="link"
-              :margin="30"
-              :qrOptions="{
+                :width="400"
+                :height="400"
+                :data="link"
+                :value="link"
+                :margin="30"
+                :qrOptions="{
                 typeNumber: 0,
                 mode: 'Byte',
                 errorCorrectionLevel: 'H',
               }"
-              :imageOptions="{
+                :imageOptions="{
                 hideBackgroundDots: true,
                 imageSize: 0.2,
                 margin: 0,
               }"
-              :dotsOptions="{
+                :dotsOptions="{
                 type: 'square',
                 color: '#000000',
                 gradient: null,
               }"
-              :cornersSquareOptions="{
+                :cornersSquareOptions="{
                 type: 'square'
               }"
-              :cornersDotOptions="{
+                :cornersDotOptions="{
                 type: 'square',
                 color: '#000000',
               }"
-              :backgroundOptions="{ color: '#ffffff' }"
-              
+                :backgroundOptions="{ color: '#ffffff' }"
+
             />
           </div>
 
-          <button class="btn-reset btn qr__btn">Сохранить код</button>
+          <button class="btn-reset btn qr__btn" @click="downloadImage()">Сохранить код</button>
           <p class="qr__descr text-little">
             Чтобы пользователь смог сохранить визитку к себе, необходимо
             отсканировать данный QR-код, который пееправит на страницу с
@@ -53,7 +53,8 @@
 
 <script>
 import QRCodeVue3 from "qr-code-generator-vue3";
-import { mapGetters } from "vuex";
+import {mapGetters} from "vuex";
+
 export default {
   name: "up-card-qr",
   data() {
@@ -66,6 +67,14 @@ export default {
   },
   components: {
     QRCodeVue3,
+  },
+  methods: {
+    downloadImage() {
+      const link = document.createElement('a');
+      link.href = document.getElementsByClassName('qr__img')[0].getElementsByTagName('img')[0].getAttribute('src');
+      link.download = this.SELECTED_CARD.name + '-qr.jpg';
+      link.click();
+    },
   },
   mounted() {
     this.link = "https://card.upcard.online/" + this.SELECTED_CARD.link;

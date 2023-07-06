@@ -20,7 +20,7 @@
             <li class="list-menu__item">
               <a class="list-menu__link" style="color: gray"
                 ><i class="fa-regular fa-calendar-days"></i>
-                <span>Календарь приема</span></a
+                <span>Органайзер</span></a
               >
             </li>
             <li class="list-menu__item"  @click="goToPage('/card-appearance')">
@@ -29,7 +29,7 @@
               </button> 
             </li>
             <li class="list-menu__item">
-              <button
+              <button @click="deleteCard()"
                 class="btn-reset btn btn--med btn--border list-menu__btn"
               >
                 Удалить визитку
@@ -43,14 +43,22 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import {mapActions, mapGetters} from 'vuex';
 export default {
   name: "up-card-edit-menu",
   methods: {
+    ...mapActions(["SET_DELETE_DATA"]),
     goToPage(link) {
         this.$router.push(link)
-    }
-    
+    },
+    deleteCard() {
+      this.SET_DELETE_DATA({
+        type: "card",
+        info: "визитку",
+        id: this.SELECTED_CARD.id,
+      });
+      this.$router.push("/delete");
+    },
   },
   computed: {
       ...mapGetters(['SELECTED_CARD',])

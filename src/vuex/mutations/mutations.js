@@ -1,7 +1,7 @@
 export default {
     // card
     SET_CARDS_TO_STATE: (state, cards) => {
-      state.cards = cards;
+        state.cards = cards;
     },
     SET_SELECTED_CARD: (state, card) => {
         state.selectedCard = card
@@ -38,7 +38,7 @@ export default {
         } else {
             state.selectedCard.id_company_info.id_social = socialData
         }
-        
+
     },
     UPDATE_SOCIAL_PATH: (state, socialPath) => {
         state.socialPath = socialPath
@@ -75,5 +75,8 @@ export default {
     },
     SET_ACCOUNT_TO_STATE: (state, account) => {
         state.account = account;
+    },
+    DELETE_CARD: (state) => {
+        state.selectedCard = {}
     }
-  };
+};

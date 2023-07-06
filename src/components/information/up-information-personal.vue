@@ -235,7 +235,6 @@
                 <!--                >-->
               </div>
             </div>
-
             <div
                 class="btns-panel data-form__btns-panel"
                 v-if="Object.keys(SELECTED_CARD).length !== 0"
@@ -245,7 +244,12 @@
                   type="button"
                   @click="updateCard()"
               >
-                Обновить визитку
+                <template v-if="isLoad">
+                  <div  class="lds-dual-ring"></div>
+                </template>
+                <template v-else>
+                  Обновить визитку
+                </template>
               </button>
 
               <p class="btns-panel__descr">
@@ -259,8 +263,14 @@
                   class="btn-reset btn btn--big data-form__btn"
                   type="button"
                   @click="addCard()"
+                  value=""
               >
-                Создать визитку
+                <template v-if="isLoad">
+                <div  class="lds-dual-ring"></div>
+                </template>
+                <template v-else>
+                    Создать визитку
+                </template>
               </button>
 
               <p class="btns-panel__descr">
@@ -273,7 +283,6 @@
       </section>
     </div>
   </main>
-
   <upNotificationMessage></upNotificationMessage>
 </template>
 
@@ -314,6 +323,7 @@ export default {
       },
       personal_img: require("../../assets/img/avatar-card.avif"),
       logo_img: require("../../assets/img/avatar-card.avif"),
+      isLoad: false,
     };
   },
   methods: {
@@ -340,7 +350,7 @@ export default {
           this.cardData.spec !== "" &&
           this.cardData.link !== ""
       ) {
-
+        this.isLoad = true;
         this.UPDATE_CARD_API(this.cardData).then(response => {
           if ('error' in response) {
             if (response['error'] === 'link') {
@@ -351,12 +361,21 @@ export default {
               });
             }
           }
-        });
-
-        this.SET_NOTIFICATION_DATA({
-          isNotification: true,
-          notificationText: "Данные обновлены",
-          notificationType: "",
+          // если id есть в результате выполенения запроса, значит он удечный
+          if ('id' in response) {
+            this.SET_NOTIFICATION_DATA({
+              isNotification: true,
+              notificationText: "Данные обновлены",
+              notificationType: "",
+            });
+          } else {
+            this.SET_NOTIFICATION_DATA({
+              isNotification: true,
+              notificationText: "Что то пошло не так, повторите попытку",
+              notificationType: "message--error",
+            });
+          }
+          this.isLoad = false;
         });
       } else {
         this.SET_NOTIFICATION_DATA({
@@ -366,7 +385,6 @@ export default {
         });
       }
     },
-
     // создание карточки
     addCard() {
       if (
@@ -376,7 +394,7 @@ export default {
           this.cardData.card_name !== "" &&
           this.cardData.link !== ""
       ) {
-
+        this.isLoad = true;
         this.POST_CARD_API(this.cardData).then(response => {
           if ('error' in response) {
             if (response['error'] === 'link') {
@@ -387,12 +405,21 @@ export default {
               });
             }
           }
-        });
 
-        this.SET_NOTIFICATION_DATA({
-          isNotification: true,
-          notificationText: "Данные сохранены",
-          notificationType: "",
+          if ('id' in response) {
+            this.SET_NOTIFICATION_DATA({
+              isNotification: true,
+              notificationText: "Данные сохранены",
+              notificationType: "",
+            });
+          } else {
+            this.SET_NOTIFICATION_DATA({
+              isNotification: true,
+              notificationText: "Что то пошло не так, повторите попытку",
+              notificationType: "message--error",
+            });
+          }
+          this.isLoad = false;
         });
       } else {
         this.SET_NOTIFICATION_DATA({
@@ -419,7 +446,6 @@ export default {
           },
           false
       );
-
       if (file) {
         reader.readAsDataURL(file);
       }
@@ -427,7 +453,7 @@ export default {
     // редирект
     goToPage(link) {
       // при редиректе на социалки проверяем есть ли такая таблица, если нет,создаем
-      if (link == "/social-list") {
+      if (link === "/social-list") {
         if (this.SELECTED_CARD.id_social == null) {
           // создаем табл социалок
           this.POST_SOCIAL_API({}).then(() => {
