@@ -52,7 +52,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["ACCOUNT"]),
+    ...mapGetters(["ACCOUNT", "SELECTED_CARD"]),
   },
   methods: {
     ...mapActions(["SELECT_CARD", "GET_ACCOUNT_FROM_API"]),
@@ -60,8 +60,10 @@ export default {
       this.$router.push("/account")
     },
     back() {
-      if (this.$route.path == '/social-list') {
+      if (this.$route.path === '/social-list') {
         this.$router.push('/personal')
+      } else if (this.$route.path === '/personal' && Object.keys(this.SELECTED_CARD).length) {
+        this.$router.push('/card-edit')
       } else {
         history.back()
       }

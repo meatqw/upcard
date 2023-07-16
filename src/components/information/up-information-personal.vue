@@ -242,7 +242,7 @@
               <button
                   class="btn-reset btn btn--big data-form__btn"
                   type="button"
-                  @click="updateCard()"
+                  v-touch="updateCard"
               >
                 <template v-if="isLoad">
                   <div  class="lds-dual-ring"></div>
@@ -262,7 +262,7 @@
               <button
                   class="btn-reset btn btn--big data-form__btn"
                   type="button"
-                  @click="addCard()"
+                  v-touch="addCard"
                   value=""
               >
                 <template v-if="isLoad">
