@@ -203,10 +203,10 @@
                   <label class="radio-btn__content" for="radio-7"
                     ><div class="appearance__colors">
                       <div
-                        class="appearance__color appearance__color--light-yellow"
+                        class="appearance__color appearance__color--yellow"
                       ></div>
                       <div
-                        class="appearance__color appearance__color--light"
+                        class="appearance__color appearance__color--dark-blue"
                       ></div>
                     </div>
                     <h3 class="appearance__subtitle text-little">

@@ -64,4 +64,17 @@ export default {
                 return error.response.data;
             });
     },
+    DELETE_CARD_API({ commit }, cardID) {
+        return axios(`${API_DOMAIN}/api/v1/cardDelete/${cardID}?token=${getCookie('token')}`, {
+            method: "DELETE",
+        })
+            .then((response) => {
+                commit("DELETE_CARD");
+                return response;
+            })
+            .catch((error) => {
+                console.log(error);
+                return error;
+            });
+    }
 };

@@ -33,8 +33,8 @@
         </ul>
         <div class="popup__copy-link">
           <div class="popup__link" id="myLink" style="color: black">{{ currentUrl }}</div>
-          <button class="btn-reset popup__btn" data-clipboard-target="#myLink">
-            Копировать
+          <button class="btn-reset popup__btn" data-clipboard-target="#myLink" v-touch="copy">
+            {{ copyBtnText }}
           </button>
         </div>
       </div>
@@ -54,10 +54,23 @@ export default {
       default: "",
     },
   },
+  data() {
+    return {
+      copyBtnText: 'Копировать'
+    }
+  },
   methods: {
     closePopup() {
       this.$emit("close");
     },
+    copy() {
+      try {
+        navigator.clipboard.writeText(this.currentUrl)
+      } catch (e) {
+        console.log(e);
+      }
+      this.copyBtnText = 'Скопировано';
+    }
   },
 };
 </script>

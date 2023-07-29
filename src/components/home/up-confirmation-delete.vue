@@ -40,12 +40,15 @@ export default {
     ...mapGetters(["DELETE_DATA"]),
   },
   methods: {
-    ...mapActions(["SET_DELETE_DATA", "DELETE_PORTFOLIO_API"]),
+    ...mapActions(["SET_DELETE_DATA", "DELETE_PORTFOLIO_API", "DELETE_CARD_API"]),
 
     del() {
-        if (this.DELETE_DATA.type == "portfolio") {
+        if (this.DELETE_DATA.type === "portfolio") {
             this.DELETE_PORTFOLIO_API(this.DELETE_DATA.id);
             this.$router.push('/portfolio-list')
+        } else if (this.DELETE_DATA.type === "card") {
+            this.DELETE_CARD_API(this.DELETE_DATA.id)
+            this.$router.push('/account')
         }
     }
   },
