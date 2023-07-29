@@ -4,6 +4,17 @@
       <section class="subscription">
         <div class="subscription__container">
           <h2 class="visually-hidden">Список подписок</h2>
+          <!-- чек бокс -->
+          <div class="form-radio form-radio--checkbox" style="width: 100%">
+            <input
+              class="input"
+              id="1"
+              type="checkbox"
+              name="checkbox"
+              v-model="isChecked"
+            />
+            <label class="label" for="1">Я ознакомился с чем-то</label>
+          </div>
           <ul class="list-reset subscription__list">
             <div v-for="subscription in SUBSCRIPTIONS" :key="subscription.id">
               <li
@@ -38,6 +49,7 @@
                     v-else
                     class="sub-item__btn btn"
                     @click="onSubscription(subscription.id)"
+                    :disabled="!isChecked"
                   >
                     Подключить
                   </button>
@@ -63,6 +75,22 @@
               </div>
             </li> -->
           </ul>
+          <!-- счетчик -->
+          <div class="counter">
+            <button
+              class="btn-reset btn counter__btn"
+              @click.prevent="decrementValue"
+            >
+              <i class="fa-solid fa-minus"></i>
+            </button>
+            <span class="counter__value">{{ counterValue }}</span>
+            <button
+              class="btn-reset btn counter__btn"
+              @click.prevent="incrementValue"
+            >
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </div>
         </div>
       </section>
     </div>
@@ -73,7 +101,12 @@
 import { mapActions, mapGetters } from "vuex";
 export default {
   name: "up-subscriptions-list",
-
+  data() {
+    return {
+      counterValue: 0,
+      isChecked: false,
+    };
+  },
   methods: {
     ...mapActions([
       "GET_ACCOUNT_FROM_API",
@@ -83,20 +116,31 @@ export default {
 
     loadSubscriptionData() {
       this.GET_SUBSCRIPTIONS_FROM_API().then(() => {
-      this.GET_ACCOUNT_FROM_API().then(() => {});
-    });
+        this.GET_ACCOUNT_FROM_API().then(() => {});
+      });
     },
 
     offSubscription() {
       this.UPDATE_ACCOUNT_API({ id_subscription: null }).then(() => {
-        this.loadSubscriptionData()
+        this.loadSubscriptionData();
       });
     },
     onSubscription(id) {
       this.UPDATE_ACCOUNT_API({ id_subscription: id }).then(() => {
-        this.loadSubscriptionData()
+        this.loadSubscriptionData();
       });
     },
+
+    // счетчик
+    decrementValue() {
+      if (this.counterValue > 0) {
+        this.counterValue--;
+      }
+    },
+    incrementValue() {
+      this.counterValue++;
+    },
+
   },
   computed: {
     ...mapGetters(["ACCOUNT", "SUBSCRIPTIONS"]),
@@ -106,3 +150,17 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.subscription__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+}
+
+.subscription__list {
+  width: 100%;
+}
+</style>

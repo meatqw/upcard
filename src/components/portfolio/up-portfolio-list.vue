@@ -12,7 +12,13 @@
               v-model="inputValue"
               @input="changeSubCard()"
             />
-            <span @click="updateSubCardName()" v-if="isSubCardChanged" class="header-balance__name" style="text-decoration: underline; cursor: pointer;">Сохранить</span>
+            <span
+              @click="updateSubCardName()"
+              v-if="isSubCardChanged"
+              class="header-balance__name"
+              style="text-decoration: underline; cursor: pointer"
+              >Сохранить</span
+            >
           </h2>
           <!-- список карт -->
           <ul class="list-reset list-of-portfolio__list">
@@ -87,11 +93,10 @@
   </main>
 
   <upNotificationMessage
-      v-if="showMsg"
-      v-on:close="closeNotification"
-      :msgText="msgText"
+    v-if="showMsg"
+    v-on:close="closeNotification"
+    :msgText="msgText"
   ></upNotificationMessage>
-
 </template>
 
 <script>
@@ -113,10 +118,14 @@ export default {
     };
   },
   components: {
-    upNotificationMessage
+    upNotificationMessage,
   },
   methods: {
-    ...mapActions(["GET_PORTFOLIO_FROM_API", "SELECT_PORTFOLIO_ITEM", "UPDATE_CARD_API"]),
+    ...mapActions([
+      "GET_PORTFOLIO_FROM_API",
+      "SELECT_PORTFOLIO_ITEM",
+      "UPDATE_CARD_API",
+    ]),
 
     // ЗАКРЫТЬ ОТКНО УВЕДОМЛЕНИЯ
     closeNotification(data) {
@@ -136,7 +145,7 @@ export default {
       this.UPDATE_CARD_API({
         id: this.SELECTED_CARD.id,
         subcard: this.inputValue,
-        link: this.SELECTED_CARD.link
+        link: this.SELECTED_CARD.link,
       }).then(() => {
         this.isSubCardChanged = false;
         this.msgText = "Изменения сохранен";
@@ -155,6 +164,7 @@ export default {
 </script>
 
 <style scoped>
+
 .list-of-portfolio__title {
   display: flex;
   align-items: center;

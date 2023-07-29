@@ -2955,3 +2955,27 @@ a {
 .calendar-windows__item--busy {
   color: var(--orange-color);
 }
+
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.counter__value {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 50px;
+  font-size: 20px;
+}
+
+.counter__btn {
+  width: 38px;
+}
+
+button:disabled {
+  border: none;
+  color: var(--gray-color);
+  background-color: inherit;
+}
