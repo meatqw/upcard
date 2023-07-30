@@ -64,6 +64,8 @@ export default {
         this.$router.push('/personal')
       } else if (this.$route.path === '/personal' && Object.keys(this.SELECTED_CARD).length) {
         this.$router.push('/card-edit')
+      } else if (this.$route.path === '/card-edit') {
+        this.$router.push('/account')
       } else {
         history.back()
       }

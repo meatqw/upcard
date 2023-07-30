@@ -8,6 +8,7 @@ import apiRequestsPortfolio from "./actions/api-requests-portfolio";
 import apiRequestsToken from "./actions/api-requests-token";
 import apiRequestsSubscriptions from "./actions/api-requests-subscriptions";
 import apiRequestsAccount from "./actions/api-requests-account";
+import apiRequestsSubscribe from "./actions/api-requests-subscribe";
 
 
 import getters from "./getters/getters";
@@ -23,7 +24,7 @@ const actions = {
     ...apiRequestsToken,
     ...apiRequestsSubscriptions,
     ...apiRequestsAccount,
-
+    ...apiRequestsSubscribe
 }
 
 export default createStore({
@@ -62,7 +63,10 @@ export default createStore({
         deleteData: {},
 
         // notifications
-        notificationData: { 'isNotification': false, 'notificationText': '', 'notificationType': '' }
+        notificationData: { 'isNotification': false, 'notificationText': '', 'notificationType': '' },
+
+        // subscribe
+        subscribe: false
     },
     mutations,
     actions,

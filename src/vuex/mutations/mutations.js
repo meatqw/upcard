@@ -78,5 +78,8 @@ export default {
     },
     DELETE_CARD: (state) => {
         state.selectedCard = {}
+    },
+    SUBSCRIBE: (state) => {
+        state.subscribe = true;
     }
 };

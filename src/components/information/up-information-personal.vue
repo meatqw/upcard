@@ -93,6 +93,8 @@
               <label class="data-form__label label"
               ><input
                   v-model="cardData.card_name"
+                  maxlength="120"
+                  autocomplete="off"
                   type="text"
                   name="Название"
                   class="input-reset input data-form__input input-name"
@@ -104,6 +106,8 @@
               <label class="data-form__label label"
               ><input
                   v-model="cardData.surname"
+                  maxlength="120"
+                  autocomplete="off"
                   type="text"
                   name="Фамилия"
                   class="input-reset input data-form__input"
@@ -114,6 +118,8 @@
               <label class="data-form__label label"
               ><input
                   v-model="cardData.name"
+                  maxlength="120"
+                  autocomplete="off"
                   type="text"
                   name="Имя"
                   class="input-reset input data-form__input input-first-name"
@@ -125,6 +131,8 @@
               <label class="data-form__label label"
               ><input
                   v-model="cardData.patronymic"
+                  maxlength="120"
+                  autocomplete="off"
                   type="text"
                   name="Отчество"
                   class="input-reset input data-form__input"
@@ -135,6 +143,8 @@
               <label class="data-form__label label"
               ><input
                   v-model="cardData.spec"
+                  maxlength="120"
+                  autocomplete="off"
                   type="text"
                   name="Специализация"
                   class="input-reset input data-form__input"
@@ -145,6 +155,7 @@
               <label class="data-form__label label"
               ><input
                   v-model="cardData.phone"
+                  autocomplete="off"
                   type="tel"
                   name="Телефон"
                   class="input-reset input data-form__input input-tel"
@@ -157,18 +168,9 @@
               >
               <label class="data-form__label label"
               ><input
-                  v-model="cardData.home_phone"
-                  type="tel"
-                  v-mask="'##-##-##'"
-                  name="Домашний телефон"
-                  class="input-reset input data-form__input"
-                  placeholder="XX-XX-XX"
-              />
-                <span>Домашний телефон</span></label
-              >
-              <label class="data-form__label label"
-              ><input
                   v-model="cardData.personal_site"
+                  maxlength="120"
+                  autocomplete="off"
                   type="text"
                   name="Сайт"
                   class="input-reset input data-form__input"
@@ -179,6 +181,8 @@
               <label class="data-form__label label"
               ><input
                   v-model="cardData.email"
+                  maxlength="120"
+                  autocomplete="off"
                   type="email"
                   name="email"
                   class="input-reset input data-form__input input-email"
@@ -189,28 +193,21 @@
               >
               <label class="data-form__label label"
               ><input
-                  v-model="cardData.dob"
-                  type="text"
-                  v-mask="'##.##.####'"
-                  name="дата рождения"
-                  class="input-reset input data-form__input"
-                  placeholder="31.01.2001"
-              />
-                <span>Дата рождения</span></label
-              >
-              <label class="data-form__label label"
-              ><input
                   v-model="cardData.address"
+                  maxlength="120"
+                  autocomplete="off"
                   type="text"
                   name="адрес"
                   class="input-reset input data-form__input"
                   placeholder="г. Барнаул, ул. Ленина, дом 85"
               />
-                <span>Адрес проживания</span></label
+                <span>Адрес</span></label
               >
               <label class="data-form__label label"
               ><input
                   v-model="cardData.link"
+                  maxlength="120"
+                  autocomplete="off"
                   type="text"
                   name="Ссылка"
                   class="input-reset input data-form__input"
@@ -245,7 +242,7 @@
                   v-touch="updateCard"
               >
                 <template v-if="isLoad">
-                  <div  class="lds-dual-ring"></div>
+                  <div class="lds-dual-ring"></div>
                 </template>
                 <template v-else>
                   Обновить визитку
@@ -266,10 +263,10 @@
                   value=""
               >
                 <template v-if="isLoad">
-                <div  class="lds-dual-ring"></div>
+                  <div class="lds-dual-ring"></div>
                 </template>
                 <template v-else>
-                    Создать визитку
+                  Создать визитку
                 </template>
               </button>
 

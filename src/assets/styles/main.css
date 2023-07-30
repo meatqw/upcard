@@ -2955,8 +2955,6 @@ a {
 .calendar-windows__item--busy {
   color: var(--orange-color);
 }
-
-<<<<<<< HEAD
 .counter {
   display: flex;
   align-items: center;
