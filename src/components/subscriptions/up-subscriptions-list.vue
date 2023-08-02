@@ -13,7 +13,7 @@
                 name="checkbox"
                 v-model="isChecked"
             />
-            <label class="label" for="1">Я ознакомился с уловиями</label>
+            <label class="label" for="1">Я ознакомился с <a href="https://upcard.online/static/landing/termsofuse.pdf">уловиями</a></label>
           </div>
           <ul class="list-reset subscription__list">
             <div v-for="subscription in SUBSCRIPTIONS" :key="subscription.id">
