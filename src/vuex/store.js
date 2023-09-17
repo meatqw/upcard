@@ -66,7 +66,8 @@ export default createStore({
         notificationData: { 'isNotification': false, 'notificationText': '', 'notificationType': '' },
 
         // subscribe
-        subscribe: false
+        subscribe: {},
+        paymentURL: null
     },
     mutations,
     actions,

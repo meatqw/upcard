@@ -50,7 +50,7 @@
                 <span>Мой тариф</span>
               </div>
               <div class="nav__right">
-                <div class="nav__balance">0 руб</div>
+                <div class="nav__balance">{{this.subscribeStatus}}</div>
               </div></a
             >
           </li>
@@ -90,10 +90,10 @@
           <span class="header-balance__name">{{this.ACCOUNT.email}}</span>
         </div>
         <!-- значение баланса -->
-        <div class="header__balance header-balance">
-          <span class="header-balance__name" style="text-decoration: underline; cursor: pointer">Ваш баланс:</span>
-          <span class="header-balance__value">0 руб.</span>
-        </div>
+<!--        <div class="header__balance header-balance">-->
+<!--          <span class="header-balance__name" style="text-decoration: underline; cursor: pointer">Ваш баланс:</span>-->
+<!--          <span class="header-balance__value">0 руб.</span>-->
+<!--        </div>-->
 
         <!-- кнопка создания новой визитки -->
         <button
@@ -137,16 +137,22 @@ export default {
       this.menuClassName = "nav";
       this.menuBtnClassName = "btn-reset burger";
 
-      if (link == "/personal") {
+      if (link === "/personal") {
         // обнуляем выбраннуб карточку
         this.SELECT_CARD({});
       }
-      // переход
+
+        // переход
+      if (!this.SUBSCRIBE.status && link === "/personal") {
+        this.$router.push('/subscriptions');
+        return;
+      }
+
       this.$router.push(link);
     },
   },
   computed: {
-      ...mapGetters(["ACCOUNT"]),
+      ...mapGetters(["ACCOUNT", "SUBSCRIBE"]),
     // не отображаем иформации в header если это страницы авторизации
     showHeadInfo() {
       return (
@@ -164,6 +170,14 @@ export default {
     menuBtnShowClass() {
       return this.menuBtnClassName;
     },
+
+    subscribeStatus() {
+        if (this.SUBSCRIBE.status) {
+          return 'Активно';
+        } else {
+          return 'Не активно';
+        }
+    }
   },
   mounted() {
     this.GET_ACCOUNT_FROM_API().then(() => {});

@@ -5,7 +5,7 @@
         <div class="subscription__container">
           <h2 class="visually-hidden">Список подписок</h2>
           <!-- чек бокс -->
-          <div class="form-radio form-radio--checkbox" style="width: 100%">
+          <div class="form-radio form-radio--checkbox" style="width: 100%" v-if="!this.status">
             <input
                 class="input"
                 id="1"
@@ -29,56 +29,32 @@
                     <i class="fa-solid" :class="subscription.data.icon"></i>
                     <span class="text-regular">{{ subscription.name }}</span>
                   </h3>
-                  <div class="sub-item__value">Текущий</div>
-                  <a href="#" class="sub-item__link">Подробнее</a>
+                  <div class="sub-item__value" v-if="this.expireAt && this.status">Действует до {{ this.expireAt }}</div>
                 </div>
                 <div class="sub-item__info">
                   <p class="sub-item__descr">
-                    {{ price }} рублей / месяц
+                    {{ this.price }} рублей / месяц
                   </p>
+                </div>
+                <div v-if="!this.status && this.paymentURL">
+                  <a :href="this.paymentURL">Оплатить</a>
                 </div>
                 <div class="sub-item__bottom">
                   <button
-                      class="sub-item__btn btn btn--border"
-                      @click="offSubscription(subscription.id)"
-                      v-if="subscription.id == ACCOUNT.id_subscription"
-                  >
-                    Отключить
-                  </button>
-                  <button
-                      v-else
                       class="sub-item__btn btn"
                       @click="onSubscription(subscription.id)"
                       :disabled="!isChecked"
                   >
-                    Подключить
+                    {{ this.getButtonText }}
                   </button>
                 </div>
               </li>
             </div>
-            <!-- <li class="subscription__item sub-item">
-              <div class="sub-item__top">
-                <h3 class="sub-item__title">
-                  <i class="fa-solid fa-city"></i>
-                  <span class="text-regular">Бизнес</span>
-                </h3>
-                <div class="sub-item__value">Текущий</div>
-                <a href="#" class="sub-item__link">Подробнее</a>
-              </div>
-              <div class="sub-item__info">
-                <p class="sub-item__descr">499 рублей / месяц</p>
-              </div>
-              <div class="sub-item__bottom">
-                <button class="sub-item__btn btn btn--border">
-                  Подключить
-                </button>
-              </div>
-            </li> -->
           </ul>
           <!-- счетчик -->
           <div class="counter">
             <button
-                :disabled="ACCOUNT.id_subscription"
+                :disabled="this.getSubscribeStatus"
                 class="btn-reset btn counter__btn"
                 @click.prevent="decrementValue"
             >
@@ -86,7 +62,7 @@
             </button>
             <span class="counter__value">{{ counterValue }}</span>
             <button
-                :disabled="ACCOUNT.id_subscription"
+                :disabled="this.getSubscribeStatus"
                 class="btn-reset btn counter__btn"
                 @click.prevent="incrementValue"
             >
@@ -101,14 +77,19 @@
 
 <script>
 import {mapActions, mapGetters} from "vuex";
+import {getCookie} from "../../../config";
 
 export default {
   name: "up-subscriptions-list",
   data() {
     return {
-      counterValue: 0,
+      counterValue: 1,
       isChecked: false,
       price: 0,
+      status: false,
+      expireAt: false,
+      paymentURL: null,
+      redirect: false,
     };
   },
   methods: {
@@ -116,7 +97,8 @@ export default {
       "GET_ACCOUNT_FROM_API",
       "UPDATE_ACCOUNT_API",
       "GET_SUBSCRIPTIONS_FROM_API",
-      "POST_SUBSCRIBE_API"
+      "POST_SUBSCRIBE_API",
+      "GET_SUBSCRIBE_API"
     ]),
 
     loadSubscriptionData() {
@@ -134,19 +116,22 @@ export default {
     },
     // оформление подписки
     onSubscription(id) {
+      this.isChecked = false;
+      this.redirect = true;
       this.UPDATE_ACCOUNT_API({id_subscription: id}).then(() => {
         this.POST_SUBSCRIBE_API({
           'card_count': this.counterValue,
           'id_subscription': this.SUBSCRIPTIONS[0].id,
           'price': this.price
-        }).then(() => {
+        }).then((response) => {
           this.loadSubscriptionData();
+          location.href = response.payment_url;
         })
       });
     },
     // счетчик
     decrementValue() {
-      if (this.counterValue > 0) {
+      if (this.counterValue > 1) {
         this.price -= 50;
         this.counterValue--;
       }
@@ -158,10 +143,34 @@ export default {
 
   },
   computed: {
-    ...mapGetters(["ACCOUNT", "SUBSCRIPTIONS"]),
+    ...mapGetters(["ACCOUNT", "SUBSCRIPTIONS", "SUBSCRIBE"]),
+
+    getSubscribeStatus() {
+      return this.SUBSCRIBE.status;
+    },
+
+    getButtonText() {
+      if (this.expireAt && this.status) {
+        return 'Активно';
+      } else if(this.expireAt && !this.status) {
+        return 'В обработке';
+      } else {
+        return 'Подключить';
+      }
+    }
   },
   mounted() {
-    this.loadSubscriptionData();
+    let token = getCookie("token");
+    if (token != null) {
+      this.GET_SUBSCRIBE_API().then(() => {
+        this.loadSubscriptionData();
+          this.counterValue = this.SUBSCRIBE.cardCount;
+          this.price = this.SUBSCRIBE.price;
+          this.status = this.SUBSCRIBE.status;
+          this.expireAt = this.SUBSCRIBE.expireAt;
+          this.paymentURL = this.SUBSCRIBE.paymentURL;
+      });
+    }
   },
 };
 </script>

@@ -15,7 +15,7 @@ export default {
             data: formData,
         })
             .then((response) => {
-                commit("SUBSCRIBE", response.data);
+                commit("PAYMENT_URL", response.data.payment_url);
                 return response.data;
             })
             .catch((error) => {
@@ -23,4 +23,16 @@ export default {
                 return error.response.data;
             });
     },
+    GET_SUBSCRIBE_API({ commit }) {
+        return axios(`${API_DOMAIN}/api/v1/subscribe?token=${getCookie('token')}`, {
+            method: "GET",
+        })
+            .then((response) => {
+                commit("SUBSCRIBE", response.data);
+                return response.data;
+            })
+            .catch((error) => {
+                return error.response.data;
+            });
+    }
 };
