@@ -39,6 +39,11 @@ export default {
     },
     ACCOUNT(state) {
         return state.account;
+    },
+    SUBSCRIBE(state) {
+        return state.subscribe;
+    },
+    PAYMENT_URL(state) {
+        return state.paymentURL
     }
-    
   };

@@ -1,16 +1,16 @@
 <template>
-  <upHeader v-if="showHeadInfo" />
-  <upHeaderInfo :title="pageTitle" v-else-if="!showHeadInfo" />
-  <router-view> </router-view>
-  <upFooter />
+  <upHeader v-if="showHeadInfo"/>
+  <upHeaderInfo :title="pageTitle" v-else-if="!showHeadInfo"/>
+  <router-view></router-view>
+  <upFooter/>
 </template>
 
 <script>
 import upHeader from "@/components/home/up-header.vue";
 import upHeaderInfo from "@/components/home/up-header-info.vue";
 import upFooter from "@/components/home/up-footer.vue";
-import { getCookie } from "/config.js";
-import { mapActions, mapGetters } from "vuex";
+import {getCookie} from "/config.js";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   name: "up-main",
@@ -26,7 +26,7 @@ export default {
     upHeaderInfo,
   },
   computed: {
-    ...mapGetters(["TOKEN_STATUS", "DELETE_DATA"]),
+    ...mapGetters(["TOKEN_STATUS", "DELETE_DATA", "SUBSCRIBE"]),
     // не отображаем иформации в header если это страницы авторизации
 
     showHeadInfo() {
@@ -41,11 +41,12 @@ export default {
       // не делаем проверку в лоад так как там она уде есть
       if (this.$route.path != '/load') {
         this.checkToken();
+        this.subscribeCheck();
       }
     },
   },
   methods: {
-    ...mapActions(["GET_CHECK_TOKEN_FROM_API"]),
+    ...mapActions(["GET_CHECK_TOKEN_FROM_API", "GET_SUBSCRIBE_API"]),
 
     // определяем заголовок страницы
     getPageTitle(route) {
@@ -79,6 +80,7 @@ export default {
           title = `Удалить ${this.DELETE_DATA.info}`;
           break;
       }
+
       return title;
     },
 
@@ -103,9 +105,18 @@ export default {
         this.$router.push("/load");
       }
     },
+    subscribeCheck() {
+      let token = getCookie("token");
+      if (token != null) {
+        this.GET_SUBSCRIBE_API().then(() => {
+        });
+      }
+    }
   },
   mounted() {
     // this.checkToken();
-  },
-};
+  }
+  ,
+}
+;
 </script>

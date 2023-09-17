@@ -78,5 +78,11 @@ export default {
     },
     DELETE_CARD: (state) => {
         state.selectedCard = {}
+    },
+    SUBSCRIBE: (state, data) => {
+        state.subscribe = data;
+    },
+    PAYMENT_URL(state, paymentURL) {
+        state.paymentURL = paymentURL;
     }
 };
