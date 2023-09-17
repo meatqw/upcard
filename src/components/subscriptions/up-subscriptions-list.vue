@@ -32,7 +32,10 @@
                   <div class="sub-item__value" v-if="this.expireAt && this.status">Действует до {{ this.expireAt }}</div>
                 </div>
                 <div class="sub-item__info">
-                  <p class="sub-item__descr">
+                  <p class="sub-item__descr" v-if="this.status">
+                    {{ this.SUBSCRIBE.price }} рублей / месяц
+                  </p>
+                  <p class="sub-item__descr" v-else>
                     {{ this.price }} рублей / месяц
                   </p>
                 </div>
