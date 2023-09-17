@@ -164,8 +164,15 @@ export default {
     if (token != null) {
       this.GET_SUBSCRIBE_API().then(() => {
         this.loadSubscriptionData();
-          this.counterValue = this.SUBSCRIBE.cardCount;
-          this.price = this.SUBSCRIBE.price;
+
+          if (this.SUBSCRIBE.cardCount) {
+            this.counterValue = this.SUBSCRIBE.cardCount;
+          }
+
+          if (this.SUBSCRIBE.price) {
+            this.price = this.SUBSCRIBE.price;
+          }
+
           this.status = this.SUBSCRIBE.status;
           this.expireAt = this.SUBSCRIBE.expireAt;
           this.paymentURL = this.SUBSCRIBE.paymentURL;
