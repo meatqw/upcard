@@ -13,7 +13,7 @@
               name="checkbox"
               v-model="isChecked"
             />
-            <label class="label" for="1">Я ознакомился с чем-то</label>
+            <label class="label label--no-reverse" for="1">Я ознакомился с чем-то</label>
           </div>
           <ul class="list-reset subscription__list">
             <div v-for="subscription in SUBSCRIPTIONS" :key="subscription.id">

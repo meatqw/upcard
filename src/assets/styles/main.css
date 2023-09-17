@@ -595,6 +595,12 @@ a {
   flex-direction: column-reverse;
   gap: 10px;
 }
+
+.label--no-reverse {
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
 .label span {
   font-weight: 400;
   font-size: 14px;
@@ -2956,7 +2962,6 @@ a {
   color: var(--orange-color);
 }
 
-<<<<<<< HEAD
 .counter {
   display: flex;
   align-items: center;
@@ -2979,7 +2984,8 @@ button:disabled {
   border: none;
   color: var(--gray-color);
   background-color: inherit;
-=======
+}
+
 .lds-dual-ring {
   display: inline-block;
   width: 40px;
@@ -3003,5 +3009,4 @@ button:disabled {
   100% {
     transform: rotate(360deg);
   }
->>>>>>> 4c58893ef5e0eb1c7c678627edf0a3577d0a5032
 }
