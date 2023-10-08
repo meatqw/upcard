@@ -135,12 +135,12 @@ export default {
     // счетчик
     decrementValue() {
       if (this.counterValue > 1) {
-        this.price -= 50;
+        this.price -= 79;
         this.counterValue--;
       }
     },
     incrementValue() {
-      this.price += 50;
+      this.price += 79;
       this.counterValue++;
     },
 
@@ -154,7 +154,7 @@ export default {
 
     getButtonText() {
       if (this.expireAt && this.status) {
-        return 'Активно';
+        return 'Отключить';
       } else if(this.expireAt && !this.status) {
         return 'В обработке';
       } else {
